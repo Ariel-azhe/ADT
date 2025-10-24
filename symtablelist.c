@@ -38,9 +38,9 @@ SymTable_T SymTable_new(void)
         }
         else
         {
-            struct Node *prev_fst = oSymTable->first;
-            struct Node *fst = {pcKey, pvValue, prev_fst}; 
-            oSymTable->first = fst;
+            struct Node fst = {pcKey, pvValue, oSymTable->first}; 
+            struct Node *pFst = &fst;
+            oSymTable->first = pFst;
             return 1;
         }
      }
@@ -54,7 +54,7 @@ SymTable_T SymTable_new(void)
         {
             if (*(cur->key) == *pcKey)
             {
-                cur->value = *pvValue;
+                cur->value = (void*)pvValue;
                 replaced = 1;
             }
             cur++;
@@ -101,9 +101,9 @@ SymTable_T SymTable_new(void)
     {
         if (*(prev->next->key) == *pcKey)
         {
-            struct Node *next = prev->next->next;
+            struct Node *r_next = prev->next->next;
             free(prev->next);
-            prev->next = next;
+            prev->next = r_next;
             removed = 1;
         }
         prev++;
