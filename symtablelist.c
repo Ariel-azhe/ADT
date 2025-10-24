@@ -40,10 +40,10 @@ SymTable_T SymTable_new(void)
         else
         {
             struct Node *sym_fst = oSymTable->first;
-            struct Node fst;
-            fst.key = pcKey;
-            fst.value = pvValue;
-            fst.next = sym_fst; 
+            struct Node *fst = calloc(1, sizeof(struct Node));
+            fst->key = pcKey;
+            fst->value = pvValue; 
+            fst->next = sym_fst; 
             pFst = &fst;
             oSymTable->first = pFst;
             return 1;
