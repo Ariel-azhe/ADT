@@ -68,7 +68,7 @@ SymTable_T SymTable_new(void)
         {
             return NULL;
         }
-        return pvValue;
+        return (void*)pvValue;
      }
 
   int SymTable_contains(SymTable_T oSymTable, const char *pcKey)
