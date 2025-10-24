@@ -44,8 +44,7 @@ SymTable_T SymTable_new(void)
             fst->key = pcKey;
             fst->value = pvValue; 
             fst->next = sym_fst; 
-            pFst = &fst;
-            oSymTable->first = pFst;
+            oSymTable->first = fst;
             return 1;
         }
      }
