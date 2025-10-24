@@ -32,6 +32,7 @@ SymTable_T SymTable_new(void)
   int SymTable_put(SymTable_T oSymTable,
      const char *pcKey, const void *pvValue)
      {
+        struct Node *pFst = NULL;
         if (SymTable_contains(oSymTable, pcKey))
         {
             return 0;
@@ -43,7 +44,7 @@ SymTable_T SymTable_new(void)
             fst.key = pcKey;
             fst.value = pvValue;
             fst.next = sym_fst; 
-            struct Node *pFst = &fst;
+            pFst = &fst;
             oSymTable->first = pFst;
             return 1;
         }
@@ -67,6 +68,7 @@ SymTable_T SymTable_new(void)
         {
             return NULL;
         }
+        return pvValue;
      }
 
   int SymTable_contains(SymTable_T oSymTable, const char *pcKey)
@@ -101,11 +103,13 @@ SymTable_T SymTable_new(void)
   {
     struct Node *prev = oSymTable->first;
     int removed = 0;
+    void *pvValue;
     while (prev->next != NULL)
     {
         if (*(prev->next->key) == *pcKey)
         {
             struct Node *r_next = prev->next->next;
+            pvValue = prev->next->value;
             free(prev->next);
             prev->next = r_next;
             removed = 1;
@@ -116,6 +120,7 @@ SymTable_T SymTable_new(void)
     {
         return NULL;
     }
+    return pvValue;
   }
 
   void SymTable_map(SymTable_T oSymTable,
