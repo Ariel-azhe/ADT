@@ -45,6 +45,7 @@ SymTable_T SymTable_new(void)
             fst->value = pvValue; 
             fst->next = sym_fst; 
             oSymTable->first = fst;
+            size++;
             return 1;
         }
      }
@@ -112,6 +113,7 @@ SymTable_T SymTable_new(void)
             free(prev->next);
             prev->next = r_next;
             removed = 1;
+            size--;
         }
         prev++;
     }
