@@ -5,7 +5,7 @@
     #include <stdlib.h>
     struct Node {
         const char *key;
-        int value;
+        const void *value;
         struct Node *next;
     };
 

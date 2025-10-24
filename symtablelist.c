@@ -54,7 +54,7 @@ SymTable_T SymTable_new(void)
         {
             if (*(cur->key) == *pcKey)
             {
-                cur->value = pvValue;
+                cur->value = *pvValue;
                 replaced = 1;
             }
             cur++;
@@ -86,7 +86,7 @@ SymTable_T SymTable_new(void)
     {
         if (*(cur->key) == *pcKey)
         {
-            return cur->value;
+            return (void*)cur->value;
         }
         cur++;
     }
@@ -121,6 +121,6 @@ SymTable_T SymTable_new(void)
         struct Node *cur = oSymTable->first;
         while (cur->next != NULL)
         {
-            (*pfApply)(cur->key, cur->value, pvExtra);
+            (*pfApply)(cur->key, (void*)cur->value, (void*)pvExtra);
         }
     }
