@@ -50,4 +50,38 @@ SymTable_T SymTable_new(void)
         }
      }
 
+  void *SymTable_replace(SymTable_T oSymTable,
+     const char *pcKey, const void *pvValue)
+     {
+        struct Node *cur = oSymTable->first;
+        int replaced = 0;
+        while (cur->next != NULL)
+        {
+            if (*(cur->key) == *pcKey)
+            {
+                cur->value = (void*)pvValue;
+                replaced = 1;
+            }
+            cur++;
+        }
+        if (replaced == 0)
+        {
+            return NULL;
+        }
+        return (void*)pvValue;
+     }
+
+  int SymTable_contains(SymTable_T oSymTable, const char *pcKey)
+  {
+    struct Node *cur = oSymTable->first;
+    while (cur->next != NULL)
+    {
+        if (*(cur->key) == *pcKey)
+        {
+            return 1;
+        }
+        cur++;
+    }
+    return 0;
+  }
 
