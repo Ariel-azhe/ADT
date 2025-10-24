@@ -38,7 +38,11 @@ SymTable_T SymTable_new(void)
         }
         else
         {
-            struct Node fst = {pcKey, pvValue, oSymTable->first}; 
+            struct Node *sym_fst = oSymTable->first;
+            struct Node fst;
+            fst.key = pcKey;
+            fst.value = pvValue;
+            fst.next = sym_fst; 
             struct Node *pFst = &fst;
             oSymTable->first = pFst;
             return 1;
