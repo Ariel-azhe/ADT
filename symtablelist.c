@@ -103,7 +103,7 @@ SymTable_T SymTable_new(void)
   {
     struct Node *prev = oSymTable->first;
     int removed = 0;
-    void *pvValue;
+    const void *pvValue;
     while (prev->next != NULL)
     {
         if (*(prev->next->key) == *pcKey)
@@ -120,7 +120,7 @@ SymTable_T SymTable_new(void)
     {
         return NULL;
     }
-    return pvValue;
+    return (void*)pvValue;
   }
 
   void SymTable_map(SymTable_T oSymTable,
