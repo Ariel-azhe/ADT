@@ -85,3 +85,52 @@ SymTable_T SymTable_new(void)
     return 0;
   }
 
+  void *SymTable_get(SymTable_T oSymTable, const char *pcKey)
+  {
+    struct Node *cur = oSymTable->first;
+    while (cur->next != NULL)
+    {
+        if (*(cur->key) == *pcKey)
+        {
+            return (void*)cur->value;
+        }
+        cur++;
+    }
+    return NULL;
+  }
+
+  void *SymTable_remove(SymTable_T oSymTable, const char *pcKey)
+  {
+    struct Node *prev = oSymTable->first;
+    int removed = 0;
+    const void *pvValue;
+    while (prev->next != NULL)
+    {
+        if (*(prev->next->key) == *pcKey)
+        {
+            struct Node *r_next = prev->next->next;
+            pvValue = prev->next->value;
+            free(prev->next);
+            prev->next = r_next;
+            removed = 1;
+            size--;
+        }
+        prev++;
+    }
+    if (removed == 0)
+    {
+        return NULL;
+    }
+    return (void*)pvValue;
+  }
+
+  void SymTable_map(SymTable_T oSymTable,
+     void (*pfApply)(const char *pcKey, void *pvValue, void *pvExtra),
+     const void *pvExtra)
+     {
+        struct Node *cur = oSymTable->first;
+        while (cur->next != NULL)
+        {
+            (*pfApply)(cur->key, (void*)cur->value, (void*)pvExtra);
+        }
+    }
