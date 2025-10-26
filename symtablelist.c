@@ -128,7 +128,7 @@ SymTable_T SymTable_new(void)
     {
         if (*(cur->key) == *pcKey)
         {
-            return (void*)cur->value;
+            return nnul;
         }
         cur = cur->next;
     }
