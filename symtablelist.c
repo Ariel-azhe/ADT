@@ -65,8 +65,12 @@ SymTable_T SymTable_new(void)
         }
         if (replaced == 0)
         {
+            free(cur);
+            cur = NULL;
             return NULL;
         }
+        free(cur);
+        cur = NULL;
         return (void*)pvValue;
      }
 
@@ -77,10 +81,14 @@ SymTable_T SymTable_new(void)
     {
         if (*(cur->key) == *pcKey)
         {
+            free(cur);
+            cur = NULL;
             return 1;
         }
         cur++;
     }
+    free(cur);
+    cur = NULL;
     return 0;
   }
 
@@ -91,10 +99,14 @@ SymTable_T SymTable_new(void)
     {
         if (*(cur->key) == *pcKey)
         {
+            free(cur);
+            cur = NULL;
             return (void*)cur->value;
         }
         cur++;
     }
+    free(cur);
+    cur = NULL;
     return NULL;
   }
 
@@ -118,8 +130,13 @@ SymTable_T SymTable_new(void)
     }
     if (removed == 0)
     {
-        return NULL;
+        free(prev);
+        prev = NULL;
+        free(pvValue);
+        pvValue = NULL;
     }
+    free(prev);
+    prev = NULL;
     return (void*)pvValue;
   }
 
@@ -132,4 +149,6 @@ SymTable_T SymTable_new(void)
         {
             (*pfApply)(cur->key, (void*)cur->value, (void*)pvExtra);
         }
+        free(cur);
+        cur = NULL;
     }
