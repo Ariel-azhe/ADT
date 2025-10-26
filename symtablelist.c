@@ -6,13 +6,22 @@ int main(void)
 {
     SymTable_T oSymtable = SymTable_new();
     int *res = NULL;
+    const void *rget;
     const void *pvValue;
     const char a = 'a';
     int num = 1;
     const char *pcKey = &a;
     pvValue = &num;
+    
+
     /*SymTable_put(oSymtable, pcKey, pvValue);*/
-    return (SymTable_get(oSymtable, pcKey));
+    rget = SymTable_get(oSymtable, pcKey);
+    if (rget == NULL)
+    {
+        return 3;
+    }
+    res = (int*)rget;
+    return *res;
 }
 SymTable_T SymTable_new(void)
 {
