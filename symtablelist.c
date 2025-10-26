@@ -23,7 +23,7 @@ int main(void)
     return *res;
 }
     */
-   
+
 SymTable_T SymTable_new(void)
 {
     SymTable_T sym = (struct List*)calloc(1, sizeof(struct List));
@@ -126,7 +126,7 @@ SymTable_T SymTable_new(void)
     struct Node *prev = oSymTable->first;
     int removed = 0;
     const void *pvValue;
-    while (prev->next != NULL)
+    while (prev != NULL)
     {
         if (*(prev->next->key) == *pcKey)
         {
