@@ -47,16 +47,6 @@ int main(void)
    
    /* Test SymTable_contains(). */
 
-   iFound = SymTable_contains(oSymTable, acJeter);
-
-   iFound = SymTable_contains(oSymTable, acMantle);
-
-   iFound = SymTable_contains(oSymTable, acGehrig);
-
-   iFound = SymTable_contains(oSymTable, acRuth);
-
-   iFound = SymTable_contains(oSymTable, "Clemens");
-
    iFound = SymTable_contains(oSymTable, "Maris");
 
    if (iFound)
