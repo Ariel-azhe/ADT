@@ -109,6 +109,8 @@ SymTable_T SymTable_new(void)
   void *SymTable_get(SymTable_T oSymTable, const char *pcKey)
   {
     struct Node *cur = oSymTable->first;
+    return cur->value;
+    /*
     while (cur->next != NULL)
     {
         if (*(cur->key) == *pcKey)
@@ -122,6 +124,7 @@ SymTable_T SymTable_new(void)
     free(cur);
     cur = NULL;
     return NULL;
+    */
   }
 
   void *SymTable_remove(SymTable_T oSymTable, const char *pcKey)
