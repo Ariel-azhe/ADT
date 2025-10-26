@@ -163,10 +163,10 @@ SymTable_T SymTable_new(void)
             {
                 oSymTable->first = cur->next;
             }
-            free(cur->key);
+            free((void*)cur->key);
             cur->key = NULL;
             free(cur);
-            cur == NULL;
+            cur = NULL;
             size--;
         }
         prev = cur;
