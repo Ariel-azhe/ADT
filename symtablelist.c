@@ -1,28 +1,88 @@
 #include "symtable.h"
 
 size_t size;
-/*
+
 int main(void)
 {
-    SymTable_T oSymtable = SymTable_new();
-    int *res = NULL;
-    const void *rget;
-    const void *pvValue;
-    const char a = 'b';
-    int num = 2;
-    const char *pcKey = &a;
-    pvValue = &num;
+    SymTable_T oSymTable = SymTable_new();
+    char acJeter[] = "Jeter";
+   char acMantle[] = "Mantle";
+   char acGehrig[] = "Gehrig";
+   char acRuth[] = "Ruth";
+   char acShortstop[] = "Shortstop";
+   char acCenterField[] = "Center Field";
+   char acFirstBase[] = "First Base";
+   char acRightField[] = "Right Field";
 
-    SymTable_put(oSymtable, pcKey, pvValue);
-    rget = SymTable_get(oSymtable, pcKey);
-    if (rget == NULL)
-    {
-        return 3;
-    }
-    res = (int*)rget;
-    return *res;
+   char acBrown[] = "Brown";
+   
+   char *pcValue;
+   int iSuccessful;
+   int iFound;
+   size_t uLength;
+
+   iSuccessful = SymTable_put(oSymTable, acJeter, acShortstop);
+   ASSURE(iSuccessful);
+
+   uLength = SymTable_getLength(oSymTable);
+   ASSURE(uLength == 1);
+
+   iSuccessful = SymTable_put(oSymTable, acMantle, acCenterField);
+   ASSURE(iSuccessful);
+
+   uLength = SymTable_getLength(oSymTable);
+   ASSURE(uLength == 2);
+
+   iSuccessful = SymTable_put(oSymTable, acGehrig, acFirstBase);
+   ASSURE(iSuccessful);
+
+   uLength = SymTable_getLength(oSymTable);
+   ASSURE(uLength == 3);
+
+   iSuccessful = SymTable_put(oSymTable, acRuth, acRightField);
+   ASSURE(iSuccessful);
+
+   uLength = SymTable_getLength(oSymTable);
+   ASSURE(uLength == 4);
+
+   /* Try to insert duplicate to first key entered */
+   iSuccessful = SymTable_put(oSymTable, acJeter, acCenterField);
+   ASSURE(! iSuccessful);
+
+   uLength = SymTable_getLength(oSymTable);
+   ASSURE(uLength == 4);
+
+   /* Try to insert duplicate to last key entered */
+   iSuccessful = SymTable_put(oSymTable, acRuth, acCenterField);
+   ASSURE(! iSuccessful);
+
+   uLength = SymTable_getLength(oSymTable);
+   ASSURE(uLength == 4);
+
+   
+   /* Test SymTable_contains(). */
+
+   iFound = SymTable_contains(oSymTable, acJeter);
+   ASSURE(iFound);
+
+   iFound = SymTable_contains(oSymTable, acMantle);
+   ASSURE(iFound);
+
+   iFound = SymTable_contains(oSymTable, acGehrig);
+   ASSURE(iFound);
+
+   iFound = SymTable_contains(oSymTable, acRuth);
+   ASSURE(iFound);
+
+   iFound = SymTable_contains(oSymTable, "Clemens");
+   ASSURE(! iFound);
+
+   iFound = SymTable_contains(oSymTable, "Maris");
+   ASSURE(! iFound);
+
+   return 0;
 }
-    */
+
 
 SymTable_T SymTable_new(void)
 {
