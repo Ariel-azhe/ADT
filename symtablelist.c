@@ -2,7 +2,7 @@
 
 size_t size;
 
-void* main(void)
+int main(void)
 {
     SymTable_T oSymtable = SymTable_new();
     int *res = NULL;
