@@ -4,7 +4,7 @@ size_t size;
 
 SymTable_T SymTable_new(void)
 {
-    SymTable_T sym = calloc(1, sizeof(struct List));
+    SymTable_T sym = (struct List*)calloc(1, sizeof(struct List));
     if (sym == NULL)
     {
         return NULL;
@@ -18,7 +18,6 @@ SymTable_T SymTable_new(void)
     {
         struct Node *fst_next = oSymTable->first->next;
         free(oSymTable->first);
-        oSymTable->first = NULL;
         oSymTable->first = fst_next;
         size--;
     }
@@ -40,7 +39,7 @@ SymTable_T SymTable_new(void)
         else
         {
             struct Node *sym_fst = oSymTable->first;
-            struct Node *fst = calloc(1, sizeof(struct Node));
+            struct Node *fst = (struct Node*)calloc(1, sizeof(struct Node));
             fst->key = pcKey;
             fst->value = pvValue; 
             fst->next = sym_fst; 
