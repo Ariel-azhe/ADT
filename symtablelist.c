@@ -5,13 +5,14 @@ size_t size;
 int main(void)
 {
     SymTable_T oSymtable = SymTable_new();
+    int *res = NULL;
     const void *pvValue;
     const char a = 'a';
     int num = 1;
     const char *pcKey = &a;
     pvValue = &num;
     SymTable_put(oSymtable, pcKey, pvValue);
-    int *res = (int*)(SymTable_get(oSymtable, pcKey));
+    res = (int*)(SymTable_get(oSymtable, pcKey));
     return *res;
 }
 SymTable_T SymTable_new(void)
