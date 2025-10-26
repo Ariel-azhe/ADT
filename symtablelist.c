@@ -33,10 +33,6 @@ int main(void)
 
    uLength = SymTable_getLength(oSymTable);
 
-   iSuccessful = SymTable_put(oSymTable, acRuth, acRightField);
-
-   uLength = SymTable_getLength(oSymTable);
-
 
 
    
