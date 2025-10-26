@@ -49,7 +49,7 @@ int main(void)
 
    iFound = SymTable_contains(oSymTable, "Maris");
 
-   if (iFound)
+   if (iFound == 1)
    {
     return 1;
    }
