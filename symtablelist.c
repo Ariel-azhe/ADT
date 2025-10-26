@@ -8,16 +8,12 @@ int main(void)
     int *res = NULL;
     const void *rget;
     const void *pvValue;
-    const char a = 'a';
-    int num = 1;
+    const char a = 'b';
+    int num = 2;
     const char *pcKey = &a;
     pvValue = &num;
-    oSymtable->first = (struct Node*)calloc(1, sizeof(struct Node));
-    oSymtable->first->key = pcKey;
-    oSymtable->first->value = pvValue;
 
-
-    /*SymTable_put(oSymtable, pcKey, pvValue);*/
+    SymTable_put(oSymtable, pcKey, pvValue);
     rget = SymTable_get(oSymtable, pcKey);
     if (rget == NULL)
     {
