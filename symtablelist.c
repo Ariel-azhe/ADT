@@ -2,6 +2,17 @@
 
 size_t size;
 
+int main(void)
+{
+    SymTable_T oSymtable = SymTable_new();
+    const void *pvValue;
+    const char a = 'a';
+    int num = 1;
+    const char *pcKey = &a;
+    pvValue = &num;
+    SymTable_put(oSymtable, pcKey, pvValue);
+    SymTable_get(oSymtable, pcKey);
+}
 SymTable_T SymTable_new(void)
 {
     SymTable_T sym = (struct List*)calloc(1, sizeof(struct List));
@@ -52,8 +63,7 @@ SymTable_T SymTable_new(void)
   void *SymTable_replace(SymTable_T oSymTable,
      const char *pcKey, const void *pvValue)
      {
-        struct Node *cur = (struct Node*)(calloc(1, sizeof(struct Node)));
-        cur = oSymTable->first;
+        struct Node *cur = oSymTable->first;
         int replaced = 0;
         while (cur->next != NULL)
         {
@@ -77,8 +87,7 @@ SymTable_T SymTable_new(void)
 
   int SymTable_contains(SymTable_T oSymTable, const char *pcKey)
   {
-    struct Node *cur = (struct Node*)(calloc(1, sizeof(struct Node)));
-    cur = oSymTable->first;
+    struct Node *cur = oSymTable->first;
     while (cur->next != NULL)
     {
         if (*(cur->key) == *pcKey)
@@ -96,8 +105,7 @@ SymTable_T SymTable_new(void)
 
   void *SymTable_get(SymTable_T oSymTable, const char *pcKey)
   {
-    struct Node *cur = (struct Node*)(calloc(1, sizeof(struct Node)));
-    cur = oSymTable->first;
+    struct Node *cur = oSymTable->first;
     while (cur->next != NULL)
     {
         if (*(cur->key) == *pcKey)
@@ -115,10 +123,9 @@ SymTable_T SymTable_new(void)
 
   void *SymTable_remove(SymTable_T oSymTable, const char *pcKey)
   {
-    struct Node *prev = (struct Node*)(calloc(1, sizeof(struct Node)));
+    struct Node *prev = oSymTable->first;
     int removed = 0;
     const void *pvValue;
-    prev = oSymTable->first;
     while (prev->next != NULL)
     {
         if (*(prev->next->key) == *pcKey)
@@ -148,8 +155,7 @@ SymTable_T SymTable_new(void)
      void (*pfApply)(const char *pcKey, void *pvValue, void *pvExtra),
      const void *pvExtra)
      {
-        struct Node *cur = (struct Node*)(calloc(1, sizeof(struct Node)));
-        cur = oSymTable->first;
+        struct Node *cur = oSymTable->first;
         while (cur->next != NULL)
         {
             (*pfApply)(cur->key, (void*)cur->value, (void*)pvExtra);
