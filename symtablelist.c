@@ -11,7 +11,7 @@ int main(void)
     const char *pcKey = &a;
     pvValue = &num;
     SymTable_put(oSymtable, pcKey, pvValue);
-    return (SymTable_get(oSymtable, pcKey));
+    return (int)(SymTable_get(oSymtable, pcKey));
 }
 SymTable_T SymTable_new(void)
 {
