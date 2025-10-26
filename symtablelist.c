@@ -19,7 +19,10 @@ int main(void)
 
     /*SymTable_put(oSymtable, pcKey, pvValue);*/
     rget = SymTable_get(oSymtable, pcKey);
-    
+    if (rget == NULL)
+    {
+        return 3;
+    }
     res = (int*)rget;
     return *res;
 }
@@ -121,9 +124,9 @@ SymTable_T SymTable_new(void)
     int num = 2;
     struct Node *cur = oSymTable->first;
     nnul = &num;
-    if (cur->key == NULL)
+    if (cur->key != NULL)
     {
-        return nnul;
+        return (void*)cur->value;
     }
     return nul;
     
