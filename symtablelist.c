@@ -121,7 +121,7 @@ SymTable_T SymTable_new(void)
     int num = 2;
     struct Node *cur = oSymTable->first;
     nnul = &num;
-    if (cur == NULL)
+    if (cur->next == NULL)
     {
         return nul;
     }
