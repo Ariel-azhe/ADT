@@ -12,7 +12,10 @@ int main(void)
     int num = 1;
     const char *pcKey = &a;
     pvValue = &num;
-    
+    oSymtable->first = (struct Node*)calloc(1, sizeof(struct Node));
+    oSymtable->first->key = pcKey;
+    oSymtable->first->value = pvValue;
+
 
     /*SymTable_put(oSymtable, pcKey, pvValue);*/
     rget = SymTable_get(oSymtable, pcKey);
@@ -132,8 +135,6 @@ SymTable_T SymTable_new(void)
     {
         if (*(cur->key) == *pcKey)
         {
-            free(cur);
-            cur = NULL;
             return (void*)cur->value;
         }
         cur++;
