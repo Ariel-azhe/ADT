@@ -1,7 +1,7 @@
 #include "symtable.h"
 
 size_t size;
-
+/*
 int main(void)
 {
     SymTable_T oSymtable = SymTable_new();
@@ -22,6 +22,8 @@ int main(void)
     res = (int*)rget;
     return *res;
 }
+    */
+   
 SymTable_T SymTable_new(void)
 {
     SymTable_T sym = (struct List*)calloc(1, sizeof(struct List));
