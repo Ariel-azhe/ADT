@@ -123,21 +123,30 @@ SymTable_T SymTable_new(void)
 
   void *SymTable_remove(SymTable_T oSymTable, const char *pcKey)
   {
+    struct Node *cur = oSymTable->first;
     struct Node *prev = oSymTable->first;
     int removed = 0;
     const void *pvValue;
-    while (prev != NULL)
+    while (cur != NULL)
     {
-        if (*(prev->next->key) == *pcKey)
+        if (*(cur->key) == *pcKey)
         {
-            struct Node *r_next = prev->next->next;
-            pvValue = prev->next->value;
-            free(prev->next);
-            prev->next = r_next;
+            struct Node *dnext = cur->next;
+            pvValue = cur->value;
+            if (cur != prev)
+            {
+                prev->next = dnext;
+            }
+            if (oSymTable->first = cur)
+            {
+                oSymTable->first = cur->next;
+            }
+            free(cur);
             removed = 1;
             size--;
         }
-        prev=prev->next;
+        prev = cur;
+        cur=cur->next;
     }
     if (removed == 0)
     {
