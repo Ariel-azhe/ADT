@@ -78,24 +78,20 @@ SymTable_T SymTable_new(void)
   void *SymTable_replace(SymTable_T oSymTable,
      const char *pcKey, const void *pvValue)
      {
+        void *rvalue = NULL;
         struct Node *cur = oSymTable->first;
-        int replaced = 0;
         assert(oSymTable != NULL);
         assert(pcKey != NULL);
         while (cur != NULL)
         {
             if (*(cur->key) == *pcKey)
             {
+                rvalue = cur->value;
                 cur->value = (void*)pvValue;
-                replaced = 1;
             }
             cur=cur->next;
         }
-        if (replaced == 0)
-        {
-            return NULL;
-        }
-        return (void*)pvValue;
+        return rvalue;
      }
 
   int SymTable_contains(SymTable_T oSymTable, const char *pcKey)

@@ -10,20 +10,21 @@ struct Table {
  struct Binding *buckets[BUCKET_COUNT];
 };
 typedef struct Table *SymTable_T;
+size_t bindings = 0;
 
 /*creates new empty symbol table or returns NULL
     if insufficient memory*/
     SymTable_T SymTable_new(void)
     {
         SymTable_T table = (SymTable_T)calloc(1, sizeof(struct Table));
-        if (table == NULL)
-        {
-            return table;
-        }
+        return table;
     }
 
     /*frees all memory occupied by oSymTable*/
-  void SymTable_free(SymTable_T oSymTable);
+  void SymTable_free(SymTable_T oSymTable)
+  {
+
+  }
 
   /*returns the number of bindings in oSymTable*/
   size_t SymTable_getLength(SymTable_T oSymTable);
