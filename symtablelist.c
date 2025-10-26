@@ -132,7 +132,7 @@ SymTable_T SymTable_new(void)
     {
         free(prev);
         prev = NULL;
-        free(pvValue);
+        free((void*)pvValue);
         pvValue = NULL;
     }
     free(prev);
