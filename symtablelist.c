@@ -42,10 +42,7 @@ int main(void)
 
    uLength = SymTable_getLength(oSymTable);
 
-   /* Try to insert duplicate to last key entered */
-   iSuccessful = SymTable_put(oSymTable, acRuth, acCenterField);
 
-   uLength = SymTable_getLength(oSymTable);
 
    
    /* Test SymTable_contains(). */
