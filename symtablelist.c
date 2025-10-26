@@ -32,7 +32,6 @@ int main(void)
 
 
    
-   /* Test SymTable_contains(). 
 
    iFound = SymTable_contains(oSymTable, "Maris");
 
