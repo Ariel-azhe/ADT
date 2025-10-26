@@ -58,7 +58,6 @@ SymTable_T SymTable_new(void)
      {
         assert(oSymTable != NULL);
         assert(pcKey != NULL);
-        assert(pvValue != NULL);
         if (SymTable_contains(oSymTable, pcKey))
         {
             return 0;
@@ -83,7 +82,6 @@ SymTable_T SymTable_new(void)
         int replaced = 0;
         assert(oSymTable != NULL);
         assert(pcKey != NULL);
-        assert(pvValue != NULL);
         while (cur != NULL)
         {
             if (*(cur->key) == *pcKey)
