@@ -109,7 +109,7 @@ SymTable_T SymTable_new(void)
   void *SymTable_get(SymTable_T oSymTable, const char *pcKey)
   {
     struct Node *cur = oSymTable->first;
-    return cur->value;
+    return (void*)cur->value;
     /*
     while (cur->next != NULL)
     {
