@@ -79,11 +79,11 @@ SymTable_T SymTable_new(void)
   void *SymTable_replace(SymTable_T oSymTable,
      const char *pcKey, const void *pvValue)
      {
+        struct Node *cur = oSymTable->first;
+        int replaced = 0;
         assert(oSymTable != NULL);
         assert(pcKey != NULL);
         assert(pvValue != NULL);
-        struct Node *cur = oSymTable->first;
-        int replaced = 0;
         while (cur != NULL)
         {
             if (*(cur->key) == *pcKey)
@@ -102,9 +102,9 @@ SymTable_T SymTable_new(void)
 
   int SymTable_contains(SymTable_T oSymTable, const char *pcKey)
   {
+    struct Node *cur = oSymTable->first;
     assert(oSymTable != NULL);
     assert(pcKey != NULL);
-    struct Node *cur = oSymTable->first;
     while (cur != NULL)
     {
         if (*(cur->key) == *pcKey)
@@ -118,9 +118,9 @@ SymTable_T SymTable_new(void)
 
   void *SymTable_get(SymTable_T oSymTable, const char *pcKey)
   {
+    struct Node *cur = oSymTable->first;
     assert(oSymTable != NULL);
     assert(pcKey != NULL);
-    struct Node *cur = oSymTable->first;
     while (cur != NULL)
     {
         if (*(cur->key) == *pcKey)
@@ -134,12 +134,12 @@ SymTable_T SymTable_new(void)
 
   void *SymTable_remove(SymTable_T oSymTable, const char *pcKey)
   {
-    assert(oSymTable != NULL);
-    assert(pcKey != NULL);
     struct Node *cur = oSymTable->first;
     struct Node *prev = oSymTable->first;
     int removed = 0;
     const void *pvValue;
+    assert(oSymTable != NULL);
+    assert(pcKey != NULL);
     while (cur != NULL)
     {
         if (*(cur->key) == *pcKey)
@@ -172,8 +172,8 @@ SymTable_T SymTable_new(void)
      void (*pfApply)(const char *pcKey, void *pvValue, void *pvExtra),
      const void *pvExtra)
      {
-        assert(oSymTable != NULL);
         struct Node *cur = oSymTable->first;
+        assert(oSymTable != NULL);
         while (cur != NULL)
         {
             (*pfApply)(cur->key, (void*)cur->value, (void*)pvExtra);
