@@ -25,10 +25,6 @@ int main(void)
 
    uLength = SymTable_getLength(oSymTable);
 
-   iSuccessful = SymTable_put(oSymTable, acMantle, acCenterField);
-
-   uLength = SymTable_getLength(oSymTable);
-
 
 
 
