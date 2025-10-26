@@ -21,13 +21,14 @@ int main(void)
    int iFound;
    size_t uLength;
 
-   /*
+   
    iSuccessful = SymTable_put(oSymTable, acJeter, acShortstop);
-   */
+   
 
+   /*
    iSuccessful = SymTable_put(oSymTable, acMantle, acCenterField);
 
-
+*/
 
    
    /* Test SymTable_contains(). */
