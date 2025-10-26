@@ -137,7 +137,7 @@ SymTable_T SymTable_new(void)
             {
                 prev->next = dnext;
             }
-            if (oSymTable->first = cur)
+            if (oSymTable->first == cur)
             {
                 oSymTable->first = cur->next;
             }
