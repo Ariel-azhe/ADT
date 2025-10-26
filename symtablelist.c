@@ -19,10 +19,7 @@ int main(void)
 
     /*SymTable_put(oSymtable, pcKey, pvValue);*/
     rget = SymTable_get(oSymtable, pcKey);
-    if (rget == NULL)
-    {
-        return 3;
-    }
+    
     res = (int*)rget;
     return *res;
 }
