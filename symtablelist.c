@@ -102,28 +102,20 @@ SymTable_T SymTable_new(void)
   int SymTable_contains(SymTable_T oSymTable, const char *pcKey)
   {
     struct Node *cur = oSymTable->first;
-    while (cur->next != NULL)
+    while (cur != NULL)
     {
         if (*(cur->key) == *pcKey)
         {
-            free(cur);
-            cur = NULL;
             return 1;
         }
-        cur++;
+        cur=cur->next;
     }
-    free(cur);
-    cur = NULL;
     return 0;
   }
 
   void *SymTable_get(SymTable_T oSymTable, const char *pcKey)
   {
-    void *nul = NULL;
-    void *nnul;
-    int num = 2;
     struct Node *cur = oSymTable->first;
-    nnul = &num;
     while (cur != NULL)
     {
         if (*(cur->key) == *pcKey)
@@ -133,7 +125,6 @@ SymTable_T SymTable_new(void)
         cur = cur->next;
     }
     return NULL;
-    
   }
 
   void *SymTable_remove(SymTable_T oSymTable, const char *pcKey)
