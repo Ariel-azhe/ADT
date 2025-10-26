@@ -123,14 +123,14 @@ SymTable_T SymTable_new(void)
     void *nnul;
     int num = 2;
     struct Node *cur = oSymTable->first;
-    /*
     nnul = &num;
-    if (cur->next == NULL)
+    if (cur->key == NULL)
     {
-        return nul;
+        return nnul;
     }
-    return nnul;
-    */
+    return nul;
+    
+    /*
     while (cur != NULL && cur->next != NULL)
     {
         if (*(cur->key) == *pcKey)
@@ -140,6 +140,7 @@ SymTable_T SymTable_new(void)
         cur++;
     }
     return NULL;
+    */
   }
 
   void *SymTable_remove(SymTable_T oSymTable, const char *pcKey)
