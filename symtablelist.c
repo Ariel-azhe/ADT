@@ -37,11 +37,6 @@ int main(void)
 
    uLength = SymTable_getLength(oSymTable);
 
-   /* Try to insert duplicate to first key entered */
-   iSuccessful = SymTable_put(oSymTable, acJeter, acCenterField);
-
-   uLength = SymTable_getLength(oSymTable);
-
 
 
    
@@ -49,11 +44,7 @@ int main(void)
 
    iFound = SymTable_contains(oSymTable, "Maris");
 
-   if (iFound == 1)
-   {
-    return 1;
-   }
-   return 0;
+   return iFound;
 }
 
 
