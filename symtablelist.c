@@ -75,23 +75,19 @@ SymTable_T SymTable_new(void)
      {
         struct Node *cur = oSymTable->first;
         int replaced = 0;
-        while (cur->next != NULL)
+        while (cur != NULL)
         {
             if (*(cur->key) == *pcKey)
             {
                 cur->value = (void*)pvValue;
                 replaced = 1;
             }
-            cur++;
+            cur=cur->next;
         }
         if (replaced == 0)
         {
-            free(cur);
-            cur = NULL;
             return NULL;
         }
-        free(cur);
-        cur = NULL;
         return (void*)pvValue;
      }
 
@@ -139,17 +135,12 @@ SymTable_T SymTable_new(void)
             removed = 1;
             size--;
         }
-        prev++;
+        prev=prev->next;
     }
     if (removed == 0)
     {
-        free(prev);
-        prev = NULL;
-        free((void*)pvValue);
         pvValue = NULL;
     }
-    free(prev);
-    prev = NULL;
     return (void*)pvValue;
   }
 
@@ -158,10 +149,9 @@ SymTable_T SymTable_new(void)
      const void *pvExtra)
      {
         struct Node *cur = oSymTable->first;
-        while (cur->next != NULL)
+        while (cur != NULL)
         {
             (*pfApply)(cur->key, (void*)cur->value, (void*)pvExtra);
+            cur=cur->next;
         }
-        free(cur);
-        cur = NULL;
     }
