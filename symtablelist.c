@@ -37,6 +37,7 @@ SymTable_T SymTable_new(void)
 
   void SymTable_free(SymTable_T oSymTable)
   {
+    assert(oSymTable != NULL);
     while (size > 0)
     {
         struct Node *fst_next = oSymTable->first->next;
@@ -48,13 +49,16 @@ SymTable_T SymTable_new(void)
 
   size_t SymTable_getLength(SymTable_T oSymTable)
   {
+    assert(oSymTable != NULL);
     return size;
   }
 
   int SymTable_put(SymTable_T oSymTable,
      const char *pcKey, const void *pvValue)
      {
-        struct Node *pFst = NULL;
+        assert(oSymTable != NULL);
+        assert(pcKey != NULL);
+        assert(pvValue != NULL);
         if (SymTable_contains(oSymTable, pcKey))
         {
             return 0;
@@ -75,6 +79,9 @@ SymTable_T SymTable_new(void)
   void *SymTable_replace(SymTable_T oSymTable,
      const char *pcKey, const void *pvValue)
      {
+        assert(oSymTable != NULL);
+        assert(pcKey != NULL);
+        assert(pvValue != NULL);
         struct Node *cur = oSymTable->first;
         int replaced = 0;
         while (cur != NULL)
@@ -95,6 +102,8 @@ SymTable_T SymTable_new(void)
 
   int SymTable_contains(SymTable_T oSymTable, const char *pcKey)
   {
+    assert(oSymTable != NULL);
+    assert(pcKey != NULL);
     struct Node *cur = oSymTable->first;
     while (cur != NULL)
     {
@@ -109,6 +118,8 @@ SymTable_T SymTable_new(void)
 
   void *SymTable_get(SymTable_T oSymTable, const char *pcKey)
   {
+    assert(oSymTable != NULL);
+    assert(pcKey != NULL);
     struct Node *cur = oSymTable->first;
     while (cur != NULL)
     {
@@ -123,6 +134,8 @@ SymTable_T SymTable_new(void)
 
   void *SymTable_remove(SymTable_T oSymTable, const char *pcKey)
   {
+    assert(oSymTable != NULL);
+    assert(pcKey != NULL);
     struct Node *cur = oSymTable->first;
     struct Node *prev = oSymTable->first;
     int removed = 0;
@@ -159,6 +172,7 @@ SymTable_T SymTable_new(void)
      void (*pfApply)(const char *pcKey, void *pvValue, void *pvExtra),
      const void *pvExtra)
      {
+        assert(oSymTable != NULL);
         struct Node *cur = oSymTable->first;
         while (cur != NULL)
         {
