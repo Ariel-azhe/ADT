@@ -13,6 +13,11 @@ int main(void)
     pvValue = &num;
     /*SymTable_put(oSymtable, pcKey, pvValue);*/
     res = (int*)(SymTable_get(oSymtable, pcKey));
+
+    free(pvValue);
+    pvValue = NULL;
+    free(pcKey);
+    pcKey = NULL;
     return *res;
 }
 SymTable_T SymTable_new(void)
@@ -22,6 +27,7 @@ SymTable_T SymTable_new(void)
     {
         return NULL;
     }
+    sym->first = NULL;
     return sym;
 }
 
