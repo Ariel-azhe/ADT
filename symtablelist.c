@@ -10,8 +10,9 @@ int main(void)
     int num = 1;
     const char *pcKey = &a;
     pvValue = &num;
-    int *pres = (int*)(SymTable_put(oSymtable, pcKey, pvValue));
-    return *pres;
+    SymTable_put(oSymtable, pcKey, pvValue);
+    int *res = (int*)(SymTable_get(oSymtable, pcKey));
+    return *res;
 }
 SymTable_T SymTable_new(void)
 {
