@@ -124,11 +124,11 @@ SymTable_T SymTable_new(void)
     int num = 2;
     struct Node *cur = oSymTable->first;
     nnul = &num;
-    while (cur != NULL && cur->next != NULL)
+    while (cur != NULL)
     {
         if (*(cur->key) == *pcKey)
         {
-            return nnul;
+            return (void*)cur->value;
         }
         cur = cur->next;
     }
