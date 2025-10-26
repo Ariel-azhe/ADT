@@ -4,6 +4,7 @@
     #include <stdio.h>
     #include <stdlib.h>
     #include <assert.h>
+    #include <string.h>
     struct Node {
         const char *key;
         const void *value;
