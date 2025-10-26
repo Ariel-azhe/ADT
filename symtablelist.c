@@ -81,7 +81,8 @@ SymTable_T SymTable_new(void)
         {
             struct Node *sym_fst = oSymTable->first;
             struct Node *fst = (struct Node*)calloc(1, sizeof(struct Node));
-            fst->key = pcKey;
+            fst->key = (const char*)malloc(strlen(pcKey) + 1);
+            strcpy((char*)fst->key, pcKey);
             fst->value = pvValue; 
             fst->next = sym_fst; 
             oSymTable->first = fst;
@@ -116,7 +117,7 @@ SymTable_T SymTable_new(void)
     assert(pcKey != NULL);
     while (cur != NULL)
     {
-        if (*(cur->key) == *pcKey)
+        if (!(strcmp(pcKey, cur->key)))
         {
             return 1;
         }
@@ -145,8 +146,7 @@ SymTable_T SymTable_new(void)
   {
     struct Node *cur = oSymTable->first;
     struct Node *prev = oSymTable->first;
-    int removed = 0;
-    const void *pvValue;
+    const void *pvValue = NULL;
     assert(oSymTable != NULL);
     assert(pcKey != NULL);
     while (cur != NULL)
@@ -163,16 +163,14 @@ SymTable_T SymTable_new(void)
             {
                 oSymTable->first = cur->next;
             }
+            free(cur->key);
+            cur->key = NULL;
             free(cur);
-            removed = 1;
+            cur == NULL;
             size--;
         }
         prev = cur;
         cur=cur->next;
-    }
-    if (removed == 0)
-    {
-        pvValue = NULL;
     }
     return (void*)pvValue;
   }
