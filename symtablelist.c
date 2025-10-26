@@ -14,9 +14,9 @@ int main(void)
     /*SymTable_put(oSymtable, pcKey, pvValue);*/
     res = (int*)(SymTable_get(oSymtable, pcKey));
 
-    free(pvValue);
+    free((void*)pvValue);
     pvValue = NULL;
-    free(pcKey);
+    free((char*)pcKey);
     pcKey = NULL;
     return *res;
 }
