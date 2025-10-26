@@ -3,6 +3,7 @@
     #define SYMTABLE_H
     #include <stdio.h>
     #include <stdlib.h>
+    #include <assert.h>
     struct Node {
         const char *key;
         const void *value;
