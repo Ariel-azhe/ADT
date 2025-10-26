@@ -2,6 +2,7 @@
 
 size_t size;
 
+/*
 int main(void)
 {
     SymTable_T oSymTable = SymTable_new();
@@ -25,19 +26,19 @@ int main(void)
    iSuccessful = SymTable_put(oSymTable, acJeter, acShortstop);
    
 
-   /*
+   
    iSuccessful = SymTable_put(oSymTable, acMantle, acCenterField);
 
-*/
+
 
    
-   /* Test SymTable_contains(). */
+   /* Test SymTable_contains(). 
 
    iFound = SymTable_contains(oSymTable, "Maris");
 
    return iFound;
 }
-
+*/
 
 SymTable_T SymTable_new(void)
 {
