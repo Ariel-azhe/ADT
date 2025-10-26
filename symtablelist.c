@@ -52,7 +52,8 @@ SymTable_T SymTable_new(void)
   void *SymTable_replace(SymTable_T oSymTable,
      const char *pcKey, const void *pvValue)
      {
-        struct Node *cur = oSymTable->first;
+        struct Node *cur = (struct Node*)(calloc(1, sizeof(struct Node)));
+        cur = oSymTable->first;
         int replaced = 0;
         while (cur->next != NULL)
         {
@@ -76,7 +77,8 @@ SymTable_T SymTable_new(void)
 
   int SymTable_contains(SymTable_T oSymTable, const char *pcKey)
   {
-    struct Node *cur = oSymTable->first;
+    struct Node *cur = (struct Node*)(calloc(1, sizeof(struct Node)));
+    cur = oSymTable->first;
     while (cur->next != NULL)
     {
         if (*(cur->key) == *pcKey)
@@ -94,7 +96,8 @@ SymTable_T SymTable_new(void)
 
   void *SymTable_get(SymTable_T oSymTable, const char *pcKey)
   {
-    struct Node *cur = oSymTable->first;
+    struct Node *cur = (struct Node*)(calloc(1, sizeof(struct Node)));
+    cur = oSymTable->first;
     while (cur->next != NULL)
     {
         if (*(cur->key) == *pcKey)
@@ -112,9 +115,10 @@ SymTable_T SymTable_new(void)
 
   void *SymTable_remove(SymTable_T oSymTable, const char *pcKey)
   {
-    struct Node *prev = oSymTable->first;
+    struct Node *prev = (struct Node*)(calloc(1, sizeof(struct Node)));
     int removed = 0;
     const void *pvValue;
+    prev = oSymTable->first;
     while (prev->next != NULL)
     {
         if (*(prev->next->key) == *pcKey)
@@ -144,7 +148,8 @@ SymTable_T SymTable_new(void)
      void (*pfApply)(const char *pcKey, void *pvValue, void *pvExtra),
      const void *pvExtra)
      {
-        struct Node *cur = oSymTable->first;
+        struct Node *cur = (struct Node*)(calloc(1, sizeof(struct Node)));
+        cur = oSymTable->first;
         while (cur->next != NULL)
         {
             (*pfApply)(cur->key, (void*)cur->value, (void*)pvExtra);
