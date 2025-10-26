@@ -2,7 +2,7 @@
 
 size_t size;
 
-int main(void)
+void* main(void)
 {
     SymTable_T oSymtable = SymTable_new();
     int *res = NULL;
@@ -11,13 +11,8 @@ int main(void)
     int num = 1;
     const char *pcKey = &a;
     pvValue = &num;
-    if (oSymtable->first == NULL)
-    {
-        return 1;
-    }
-    return 0;
     /*SymTable_put(oSymtable, pcKey, pvValue);*/
-    /*res = (int*)(SymTable_get(oSymtable, pcKey));*/
+    return (SymTable_get(oSymtable, pcKey));
 }
 SymTable_T SymTable_new(void)
 {
@@ -112,8 +107,16 @@ SymTable_T SymTable_new(void)
 
   void *SymTable_get(SymTable_T oSymTable, const char *pcKey)
   {
+    void *nul = NULL;
+    void *nnul;
+    int num = 2;
     struct Node *cur = oSymTable->first;
-    return (void*)cur->value;
+    nnul = &num;
+    if (cur == NULL)
+    {
+        return nul;
+    }
+    return nnul;
     /*
     while (cur->next != NULL)
     {
