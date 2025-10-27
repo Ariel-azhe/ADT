@@ -42,11 +42,7 @@ int main(void)
 SymTable_T SymTable_new(void)
 {
     SymTable_T sym = (struct List*)calloc(1, sizeof(struct List));
-    if (sym == NULL)
-    {
-        return NULL;
-    }
-    sym->first = NULL;
+    
     return sym;
 }
 

@@ -641,7 +641,10 @@ static void testLongKey(void)
 
 static void testTableOfTables(void)
 {
+   SymTable_T oSymTable;
    SymTable_T oSymTable1;
+   SymTable_T oSymTable2;
+   SymTable_T oSymTableRet;
    char acShortstop[] = "Shortstop";
    char acCenterField[] = "CenterField";
    char *pcValue;
@@ -688,7 +691,9 @@ static void testTableOfTables(void)
    ASSURE(pcValue == acCenterField);
    */
 
+   SymTable_free(oSymTable2);
    SymTable_free(oSymTable1);
+   SymTable_free(oSymTable);
 }
 
 /*--------------------------------------------------------------------*/
