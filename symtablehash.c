@@ -1,5 +1,16 @@
 #include "symtable.h"
 
+enum { BUCKET_COUNT = 509 };
+    struct Binding {
+    const char *key;
+    int value;
+    struct Binding *next;
+    };
+    struct Table {
+    struct Binding *buckets[BUCKET_COUNT];
+    };
+
+    
 size_t bindings = 0;
 int hkeys[BUCKET_COUNT];
 /*creates new empty symbol table or returns NULL

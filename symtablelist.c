@@ -2,6 +2,16 @@
 
 size_t size;
 
+struct Node {
+        const char *key;
+        const void *value;
+        struct Node *next;
+    };
+
+    struct Table {
+        struct Node *first;
+    };
+
 /*
 int main(void)
 {
@@ -41,7 +51,7 @@ int main(void)
 
 SymTable_T SymTable_new(void)
 {
-    SymTable_T sym = (struct List*)calloc(1, sizeof(struct List));
+    SymTable_T sym = (struct Table*)calloc(1, sizeof(struct Table));
     return sym;
 }
 
@@ -50,6 +60,10 @@ SymTable_T SymTable_new(void)
     assert(oSymTable != NULL);
     while (size > 0)
     {
+        if (oSymTable->first == NULL)
+        {
+            break;
+        }
         struct Node *fst_next = oSymTable->first->next;
         free(oSymTable->first);
         oSymTable->first = fst_next;
