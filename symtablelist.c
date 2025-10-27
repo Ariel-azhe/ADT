@@ -1,6 +1,6 @@
 #include "symtable.h"
 
-size_t size;
+static size_t size;
 
 struct Node {
         const char *key;
@@ -52,6 +52,7 @@ int main(void)
 SymTable_T SymTable_new(void)
 {
     SymTable_T sym = (struct Table*)calloc(1, sizeof(struct Table));
+    size = 0;
     return sym;
 }
 
