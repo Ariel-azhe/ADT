@@ -688,9 +688,7 @@ static void testTableOfTables(void)
    ASSURE(pcValue == acCenterField);
    */
 
-   SymTable_free(oSymTable2);
    SymTable_free(oSymTable1);
-   SymTable_free(oSymTable);
 }
 
 /*--------------------------------------------------------------------*/
