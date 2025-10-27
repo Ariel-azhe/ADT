@@ -1,5 +1,6 @@
 #include "symtable.h"
 
+typedef struct List *SymTable_T;
 size_t size;
 
 /*

@@ -1,5 +1,7 @@
 #include "symtable.h"
 
+typedef struct Table *SymTable_T;
+
 enum { BUCKET_COUNT = 509 };
 struct Binding {
  const char *key;

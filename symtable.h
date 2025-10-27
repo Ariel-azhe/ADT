@@ -14,7 +14,6 @@
     struct List {
         struct Node *first;
     };
-    typedef struct List *SymTable_T;
 
     /*creates new empty symbol table or returns NULL
     if insufficient memory*/
