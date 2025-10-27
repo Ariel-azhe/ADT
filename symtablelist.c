@@ -100,7 +100,7 @@ SymTable_T SymTable_new(void)
         assert(pcKey != NULL);
         while (cur != NULL)
         {
-            if (*(cur->key) == *pcKey)
+            if (!(strcmp(pcKey, cur->key)))
             {
                 rvalue = (void*)(cur->value);
                 cur->value = (void*)pvValue;
