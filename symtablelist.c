@@ -133,7 +133,7 @@ SymTable_T SymTable_new(void)
     assert(pcKey != NULL);
     while (cur != NULL)
     {
-        if (*(cur->key) == *pcKey)
+        if (!(strcmp(pcKey, cur->key)))
         {
             return (void*)cur->value;
         }
