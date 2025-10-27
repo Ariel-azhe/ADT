@@ -169,7 +169,6 @@ SymTable_T SymTable_new(void)
             free(cur);
             cur = NULL;
             size--;
-            break;
         }
         prev = cur;
         cur=cur->next;
