@@ -1,6 +1,5 @@
 #include "symtable.h"
 
-typedef struct Table *SymTable_T;
 
 enum { BUCKET_COUNT = 509 };
 struct Binding {
@@ -12,6 +11,7 @@ struct Table {
  struct Binding *buckets[BUCKET_COUNT];
 };
 typedef struct Table *SymTable_T;
+
 size_t bindings = 0;
 int hkeys[BUCKET_COUNT];
 /*creates new empty symbol table or returns NULL
@@ -27,7 +27,7 @@ int hkeys[BUCKET_COUNT];
   {
     for (int i = 0; i < sizeof(oSymTable->buckets);i++)
     {
-        struct Node *cur = oSymTable->buckets[i];
+        struct Binding *cur = oSymTable->buckets[i];
         while (cur != NULL)
         {
             free(cur);
@@ -187,7 +187,7 @@ int hkeys[BUCKET_COUNT];
      {
         for (int i = 0; i < sizeof(oSymTable->buckets);i++)
         {
-            struct Node *cur = oSymTable->buckets[i];
+            struct Binding *cur = oSymTable->buckets[i];
             while (cur != NULL)
             {
                 (*pfApply)(cur->key, (void*)cur->value, (void*)pvExtra);
