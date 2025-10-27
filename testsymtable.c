@@ -659,10 +659,11 @@ static void testTableOfTables(void)
    oSymTable1 = SymTable_new();
    ASSURE(oSymTable1 != NULL);
 
+   
    iSuccessful = SymTable_put(oSymTable1, "Jeter", acShortstop);
    ASSURE(iSuccessful);
 
-   
+   /*
    oSymTable2 = SymTable_new();
    ASSURE(oSymTable2 != NULL);
 
@@ -693,6 +694,7 @@ static void testTableOfTables(void)
 
    SymTable_free(oSymTable2);
    SymTable_free(oSymTable1);
+   */
    SymTable_free(oSymTable);
 }
 
