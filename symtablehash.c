@@ -1,7 +1,6 @@
 #include "symtable.h"
 
 
-enum { BUCKET_COUNT = 509 };
 struct Binding {
  const char *key;
  int value;
