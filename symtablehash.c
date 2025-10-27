@@ -13,7 +13,8 @@ int hkeys[BUCKET_COUNT];
     /*frees all memory occupied by oSymTable*/
   void SymTable_free(SymTable_T oSymTable)
   {
-    for (int i = 0; i < sizeof(oSymTable->buckets);i++)
+    size_t i = 0;
+    while (i < sizeof(oSymTable->buckets))
     {
         struct Binding *cur = oSymTable->buckets[i];
         while (cur != NULL)
@@ -22,6 +23,7 @@ int hkeys[BUCKET_COUNT];
             cur=cur->next;
         }
         oSymTable->buckets[i] = NULL;
+        i++;
     }
   }
 
@@ -173,7 +175,8 @@ int hkeys[BUCKET_COUNT];
      void (*pfApply)(const char *pcKey, void *pvValue, void *pvExtra),
      const void *pvExtra)
      {
-        for (int i = 0; i < sizeof(oSymTable->buckets);i++)
+        size_t i = 0;
+        while (i < sizeof(oSymTable->buckets))
         {
             struct Binding *cur = oSymTable->buckets[i];
             while (cur != NULL)
@@ -181,6 +184,7 @@ int hkeys[BUCKET_COUNT];
                 (*pfApply)(cur->key, (void*)cur->value, (void*)pvExtra);
                 cur=cur->next;
             }
+            i++;
         }
      }
 
