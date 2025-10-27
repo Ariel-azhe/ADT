@@ -170,8 +170,11 @@ SymTable_T SymTable_new(void)
             cur = NULL;
             size--;
         }
-        prev = cur;
-        cur=cur->next;
+        else
+        {
+            prev = cur;
+            cur=cur->next;
+        }
     }
     return (void*)pvValue;
   }
