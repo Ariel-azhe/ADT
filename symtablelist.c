@@ -57,8 +57,8 @@ SymTable_T SymTable_new(void)
 
   void SymTable_free(SymTable_T oSymTable)
   {
-    assert(oSymTable != NULL);
     struct Node *fst_next = NULL;
+    assert(oSymTable != NULL);
     while (size > 0)
     {
         if (oSymTable->first == NULL)
