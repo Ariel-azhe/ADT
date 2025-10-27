@@ -52,7 +52,7 @@ int hkeys[BUCKET_COUNT];
         cur = oSymTable->buckets[hkeys[(int)*pcKey]];
         newB = (struct Binding*)calloc(1, sizeof(struct Binding));
         newB->key = pcKey;
-        newB->value = pvValue;
+        newB->value = *((int *)pvValue);
         newB->next = cur;
         oSymTable->buckets[hkeys[(int)*pcKey]] = newB;
         bindings++;
@@ -76,8 +76,8 @@ int hkeys[BUCKET_COUNT];
         {
             if (!(strcmp(pcKey, cur->key)))
             {
-                rvalue = (void*)cur->value;
-                cur->value = pvValue;
+                rvalue = &(cur->value);
+                cur->value = *((int*)pvValue);
             }
             cur=cur->next;
         }
@@ -110,6 +110,7 @@ int hkeys[BUCKET_COUNT];
   void *SymTable_get(SymTable_T oSymTable, const char *pcKey)
   {
     struct Binding *cur = NULL;
+    void *rvalue = NULL;
     if (hkeys[(int)*pcKey] == 0)
     {
         hkeys[(int)*pcKey] = SymTable_hash(pcKey, BUCKET_COUNT);
@@ -119,11 +120,12 @@ int hkeys[BUCKET_COUNT];
     {
         if (!(strcmp(pcKey, cur->key)))
         {
-            return (void*)cur->value;
+            rvalue = &cur->value;
+            return rvalue;;
         }
         cur=cur->next;
     }
-    return NULL;
+    return rvalue;
   }
 
   /*Remove the binding with key pcKey in oSymTable and return
@@ -145,7 +147,7 @@ int hkeys[BUCKET_COUNT];
         if (!(strcmp(pcKey, cur->key)))
         {
             bnext = cur->next;
-            pvValue = cur->value;
+            pvValue = &(cur->value);
             if (oSymTable->buckets[hkeys[(int)*pcKey]] == cur)
             {
                 oSymTable->buckets[hkeys[(int)*pcKey]] = bnext;
@@ -176,12 +178,14 @@ int hkeys[BUCKET_COUNT];
      const void *pvExtra)
      {
         size_t i = 0;
+        void *rvalue;
         while (i < sizeof(oSymTable->buckets))
         {
             struct Binding *cur = oSymTable->buckets[i];
             while (cur != NULL)
             {
-                (*pfApply)(cur->key, (void*)cur->value, (void*)pvExtra);
+                rvalue = &(cur->value);
+                (*pfApply)(cur->key, rvalue, (void*)pvExtra);
                 cur=cur->next;
             }
             i++;
