@@ -151,23 +151,25 @@ SymTable_T SymTable_new(void)
     assert(pcKey != NULL);
     while (cur != NULL)
     {
-        if (*(cur->key) == *pcKey)
+        if (!(strcmp(pcKey, cur->key)))
         {
             struct Node *dnext = cur->next;
             pvValue = cur->value;
-            if (cur != prev)
-            {
-                prev->next = dnext;
-            }
             if (oSymTable->first == cur)
             {
                 oSymTable->first = cur->next;
+            }
+            else
+            {
+                prev->next = dnext;
+
             }
             free((void*)cur->key);
             cur->key = NULL;
             free(cur);
             cur = NULL;
             size--;
+            break;
         }
         prev = cur;
         cur=cur->next;
