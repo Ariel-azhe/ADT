@@ -1,16 +1,5 @@
 #include "symtable.h"
 
-
-struct Binding {
- const char *key;
- int value;
- struct Binding *next;
-};
-struct Table {
- struct Binding *buckets[BUCKET_COUNT];
-};
-typedef struct Table *SymTable_T;
-
 size_t bindings = 0;
 int hkeys[BUCKET_COUNT];
 /*creates new empty symbol table or returns NULL
