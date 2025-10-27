@@ -662,7 +662,7 @@ static void testTableOfTables(void)
    iSuccessful = SymTable_put(oSymTable1, "Jeter", acShortstop);
    ASSURE(iSuccessful);
 
-   /*
+   
    oSymTable2 = SymTable_new();
    ASSURE(oSymTable2 != NULL);
 
@@ -689,7 +689,7 @@ static void testTableOfTables(void)
 
    pcValue = (char*)SymTable_get(oSymTableRet, "Mantle");
    ASSURE(pcValue == acCenterField);
-   */
+   
 
    SymTable_free(oSymTable2);
    SymTable_free(oSymTable1);
