@@ -5,7 +5,7 @@
     #include <stdlib.h>
     #include <assert.h>
     #include <string.h>
-    /*
+
     struct Node {
         const char *key;
         const void *value;
@@ -17,8 +17,8 @@
     };
 
     typedef struct List *SymTable_T;
-    */
-
+    
+    /*
     enum { BUCKET_COUNT = 509 };
     struct Binding {
     const char *key;
@@ -29,10 +29,12 @@
     struct Binding *buckets[BUCKET_COUNT];
     };
     typedef struct Table *SymTable_T;
+    */
 
     /*creates new empty symbol table or returns NULL
     if insufficient memory*/
     SymTable_T SymTable_new(void);
+
 
     /*frees all memory occupied by oSymTable*/
   void SymTable_free(SymTable_T oSymTable);
