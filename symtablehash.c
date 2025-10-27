@@ -39,20 +39,20 @@ int hkeys[BUCKET_COUNT];
      {
         struct Binding *cur = NULL;
         struct Binding *newB;
-        if (hkeys[*pcKey] == 0)
+        if (hkeys[(int)*pcKey] == 0)
         {
-            hkeys[*pcKey] = SymTable_hash(pcKey, BUCKET_COUNT);
+            hkeys[(int)*pcKey] = SymTable_hash(pcKey, BUCKET_COUNT);
         }
         if (SymTable_contains(oSymTable, pcKey))
         {
             return 0;
         }
-        cur = oSymTable->buckets[hkeys[*pcKey]];
+        cur = oSymTable->buckets[hkeys[(int)*pcKey]];
         newB = (struct Binding*)calloc(1, sizeof(struct Binding));
         newB->key = pcKey;
         newB->value = pvValue;
         newB->next = cur;
-        oSymTable->buckets[hkeys[*pcKey]] = newB;
+        oSymTable->buckets[hkeys[(int)*pcKey]] = newB;
         bindings++;
         return 1;
      }
@@ -65,11 +65,11 @@ int hkeys[BUCKET_COUNT];
      {
         void *rvalue = NULL;
         struct Binding *cur = NULL;
-        if (hkeys[*pcKey] == 0)
+        if (hkeys[(int)*pcKey] == 0)
         {
-            hkeys[*pcKey] = SymTable_hash(pcKey, BUCKET_COUNT);
+            hkeys[(int)*pcKey] = SymTable_hash(pcKey, BUCKET_COUNT);
         }
-        cur = oSymTable->buckets[hkeys[*pcKey]];
+        cur = oSymTable->buckets[hkeys[(int)*pcKey]];
         while (cur != NULL)
         {
             if (!(strcmp(pcKey, cur->key)))
@@ -87,11 +87,11 @@ int hkeys[BUCKET_COUNT];
   int SymTable_contains(SymTable_T oSymTable, const char *pcKey)
   {
     struct Binding *cur = NULL;
-    if (hkeys[*pcKey] == 0)
+    if (hkeys[(int)*pcKey] == 0)
     {
-        hkeys[*pcKey] = SymTable_hash(pcKey, BUCKET_COUNT);
+        hkeys[(int)*pcKey] = SymTable_hash(pcKey, BUCKET_COUNT);
     }
-    cur = oSymTable->buckets[hkeys[*pcKey]];
+    cur = oSymTable->buckets[hkeys[(int)*pcKey]];
     while (cur != NULL)
     {
         if (!(strcmp(pcKey, cur->key)))
@@ -108,11 +108,11 @@ int hkeys[BUCKET_COUNT];
   void *SymTable_get(SymTable_T oSymTable, const char *pcKey)
   {
     struct Binding *cur = NULL;
-    if (hkeys[*pcKey] == 0)
+    if (hkeys[(int)*pcKey] == 0)
     {
-        hkeys[*pcKey] = SymTable_hash(pcKey, BUCKET_COUNT);
+        hkeys[(int)*pcKey] = SymTable_hash(pcKey, BUCKET_COUNT);
     }
-    cur = oSymTable->buckets[hkeys[*pcKey]];
+    cur = oSymTable->buckets[hkeys[(int)*pcKey]];
     while (cur != NULL)
     {
         if (!(strcmp(pcKey, cur->key)))
@@ -133,20 +133,20 @@ int hkeys[BUCKET_COUNT];
     struct Binding *prev = NULL;
     struct Binding *bnext = NULL;
     void *pvValue = NULL;
-    if (hkeys[*pcKey] == 0)
+    if (hkeys[(int)*pcKey] == 0)
     {
-        hkeys[*pcKey] = SymTable_hash(pcKey, BUCKET_COUNT);
+        hkeys[(int)*pcKey] = SymTable_hash(pcKey, BUCKET_COUNT);
     }
-    cur = oSymTable->buckets[hkeys[*pcKey]];
+    cur = oSymTable->buckets[hkeys[(int)*pcKey]];
     while (cur != NULL)
     {
         if (!(strcmp(pcKey, cur->key)))
         {
             bnext = cur->next;
             pvValue = cur->value;
-            if (oSymTable->buckets[hkeys[*pcKey]] == cur)
+            if (oSymTable->buckets[hkeys[(int)*pcKey]] == cur)
             {
-                oSymTable->buckets[hkeys[*pcKey]] = bnext;
+                oSymTable->buckets[hkeys[(int)*pcKey]] = bnext;
             }
             else
             {
