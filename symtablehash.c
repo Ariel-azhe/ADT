@@ -45,7 +45,7 @@ a certain amount*/
 void SymTable_expand(SymTable_T oSymTable)
 {
     struct Binding ** new_buckets = 
-    (struct Binding**)realloc(oSymTable->buckets, bucket_cnts[bindex]*2*sizeof(struct Binding));
+    (struct Binding**)realloc(oSymTable->buckets, bucket_cnts[bindex++]*sizeof(struct Binding));
     size_t i = 0;
     if (new_buckets == NULL)
     {
