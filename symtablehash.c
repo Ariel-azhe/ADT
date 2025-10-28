@@ -10,7 +10,7 @@ enum { BUCKET_COUNT = 509 };
     struct Binding *buckets[BUCKET_COUNT];
     };
 
-    
+
 size_t bindings = 0;
 int hkeys[BUCKET_COUNT];
 /*creates new empty symbol table or returns NULL
@@ -144,7 +144,7 @@ static size_t SymTable_hash(const char *pcKey, size_t uBucketCount)
     {
         if (!(strcmp(pcKey, cur->key)))
         {
-            rvalue = &cur->value;
+            rvalue = &(cur->value);
             return rvalue;;
         }
         cur=cur->next;
