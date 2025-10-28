@@ -55,12 +55,16 @@ void SymTable_expand(SymTable_T oSymTable)
     while (i < bucket_count)
     {
         struct Binding *cur = oSymTable->buckets[i];
+        int prev_hval = 0;
+        int hvalue = 0;
         struct Binding *hnext = NULL;
         struct Binding *newB = NULL;
+        struct Binding *prev = NULL;
+        struct Binding *pnext = NULL;
         while (cur != NULL)
         {
-            int hvalue = 0;
-            hvalue = SymTable_hash(cur->key, bucket_count);
+            prev_hval = SymTable_hash(cur->key, bucket_count);
+            hvalue = SymTable_hash(cur->key, oSymTable->length);
             hnext = oSymTable->buckets[hvalue];
             newB = (struct Binding*)calloc(1, sizeof(struct Binding));
             newB->key = (const char*)malloc(strlen(cur->key) + 1);
@@ -69,11 +73,24 @@ void SymTable_expand(SymTable_T oSymTable)
             newB->next = hnext;
             oSymTable->buckets[hvalue] = newB;
             oSymTable->bindings++;
+            pnext = cur->next;
+            if (prev == cur)
+            {
+                oSymTable->buckets[prev_hval] = pnext;
+            }
+            else
+            {
+                prev->next = pnext;
+            }
+            free((void*)cur->key);
+            cur->key = NULL;
+            prev = cur;
             free(cur);
             cur=cur->next;
         }
         i++;
     }
+    bucket_count = bucket_count*2;
 }
 
 
