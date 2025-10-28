@@ -21,6 +21,15 @@ size_t bucket_cnts[] = {509, 1021, 2039, 4093, 8191, 16381, 32749, 65521};
     size_t length;
     };
 
+
+    static void assure(int iSuccessful, int iLineNum)
+{
+   if (! iSuccessful)
+   {
+      printf("Test at line %d failed.\n", iLineNum);
+      fflush(stdout);
+   }
+}
     static void testLargeTable(int iBindingCount)
     {
    enum {MAX_KEY_LENGTH = 10};
