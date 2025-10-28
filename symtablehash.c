@@ -143,6 +143,7 @@ void SymTable_expand(SymTable_T oSymTable)
                 }
                 cur = nmemo;
                 nmemo->next = hnext;
+                oSymTable->buckets[prev_hval] = pnext;
                 oSymTable->buckets[hvalue] = nmemo;
                 if (prev == cur)
                 {
@@ -159,6 +160,7 @@ void SymTable_expand(SymTable_T oSymTable)
             i++;
         }
     }
+    return;
 }
 
 
