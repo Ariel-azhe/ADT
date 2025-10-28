@@ -147,8 +147,7 @@ static size_t SymTable_hash(const char *pcKey, size_t uBucketCount)
     {
         if (!(strcmp(pcKey, cur->key)))
         {
-            rvalue = &(cur->value);
-            svalue = (char*)rvalue;
+            svalue = &(cur->value);
             return (void*)svalue;
         }
         cur=cur->next;
