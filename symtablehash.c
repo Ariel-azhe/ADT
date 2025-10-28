@@ -104,9 +104,15 @@ void SymTable_expand(SymTable_T oSymTable)
                 {
                     prev->next = pnext;
                 }
+            }
+            if (prev != NULL)
+            {
                 prev = prev->next;
             }
-            prev = prev->next;
+            else
+            {
+                prev = cur;
+            }
             cur = pnext; 
             i++;
         }
