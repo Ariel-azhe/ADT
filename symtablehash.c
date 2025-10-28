@@ -206,43 +206,42 @@ void SymTable_expand(SymTable_T oSymTable)
     while (i < bucket_cnts[bindex - 1])
     {
         struct Binding *cur = oSymTable->buckets[i];
+        struct Binding *prev = oSymTable->buckets[i];
         int prev_hval = 0;
         int hvalue = 0;
         struct Binding *hnext = NULL;
         struct Binding *newB = NULL;
         struct Binding *prev = NULL;
         struct Binding *pnext = NULL;
+        struct Binding *nmemo = NULL;
         while (cur != NULL)
         {
             prev_hval = SymTable_hash(cur->key, bucket_cnts[bindex-1]);
             hvalue = SymTable_hash(cur->key, oSymTable->length);
             if (prev_hval != hvalue)
             {
-                hnext = oSymTable->buckets[hvalue];
-                newB = (struct Binding*)calloc(1, sizeof(struct Binding));
-                newB->key = (const char*)malloc(strlen(cur->key) + 1);
-                strcpy((char*)newB->key, cur->key);
-                newB->value = cur->value;
-                newB->next = hnext;
-                oSymTable->buckets[hvalue] = newB;
                 pnext = cur->next;
+                hnext = oSymTable->buckets[hvalue];
+                nmemo = (struct Binding*)realloc((void*)cur, sizeof(struct Binding));
+                if (nmemo == NULL)
+                {
+                    return;
+                }
+                cur = nmemo;
+                nmemo->next = hnext;
+                oSymTable->buckets[hvalue] = nmemo;
                 if (prev == cur)
                 {
                     oSymTable->buckets[prev_hval] = pnext;
                 }
-                else if (prev != NULL)
+                else
                 {
                     prev->next = pnext;
                 }
-                free(cur);
-                cur = pnext;
+                
             }
-            else
-            {
-                prev = cur;
-                cur=cur->next;
-            }
-        
+            prev = prev->next;
+            cur = pnext; 
         }
         i++;
     }
