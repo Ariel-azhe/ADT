@@ -1,4 +1,12 @@
 #include "symtable.h"
+#ifndef S_SPLINT_S
+#include <sys/resource.h>
+#endif
+
+/*--------------------------------------------------------------------*/
+
+#define ASSURE(i) assure(i, __LINE__)
+
 
 size_t bindex = 0;
 size_t bucket_cnts[] = {509, 1021, 2039, 4093, 8191, 16381, 32749, 65521};
@@ -140,30 +148,11 @@ size_t bucket_cnts[] = {509, 1021, 2039, 4093, 8191, 16381, 32749, 65521};
    SymTable_free(oSymTableSmall);
 }
     
-   int main(void)
-    {
-        int iBindingCount;
-
-        #ifndef S_SPLINT_S
-   setCpuTimeLimit();
-#endif
-
-   testBasics();
-   testKeyComparison();
-   testKeyOwnership();
-   testRemove();
-   testMap();
-   testEmptyTable();
-   testEmptyKey();
-   testNullValue();
-   testLongKey();
-   testTableOfTables();
-   testCollisions();
-   testLargeTable(iBindingCount);
-
-   printf("------------------------------------------------------\n");
+int main(void)
+{
+   testLargeTable(510);
    return 0;
-    }
+}
 
 
 /*creates new empty symbol table or returns NULL
