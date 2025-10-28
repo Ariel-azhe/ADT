@@ -65,6 +65,7 @@ void SymTable_expand(SymTable_T oSymTable)
         while (cur != NULL)
         {
             prev_hval = SymTable_hash(cur->key, bucket_cnts[bindex-1]);
+            bindex++;
             hvalue = SymTable_hash(cur->key, oSymTable->length);
             hnext = oSymTable->buckets[hvalue];
             newB = (struct Binding*)calloc(1, sizeof(struct Binding));
