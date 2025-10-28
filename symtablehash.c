@@ -211,7 +211,6 @@ void SymTable_expand(SymTable_T oSymTable)
         int hvalue = 0;
         struct Binding *hnext = NULL;
         struct Binding *newB = NULL;
-        struct Binding *prev = NULL;
         struct Binding *pnext = NULL;
         struct Binding *nmemo = NULL;
         while (cur != NULL)
