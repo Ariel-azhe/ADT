@@ -76,7 +76,8 @@ static size_t SymTable_hash(const char *pcKey, size_t uBucketCount)
         }
         cur = oSymTable->buckets[hvalue];
         newB = (struct Binding*)calloc(1, sizeof(struct Binding));
-        newB->key = pcKey;
+        newB->key = (const char*)malloc(strlen(pcKey) + 1);
+        strcpy((char*)newB->key, pcKey);
         newB->value = pvValue;
         newB->next = cur;
         oSymTable->buckets[hvalue] = newB;
