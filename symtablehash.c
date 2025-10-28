@@ -168,7 +168,8 @@ void SymTable_expand(SymTable_T oSymTable)
   void SymTable_free(SymTable_T oSymTable)
   {
     size_t i = 0;
-    while (i < oSymTable->bindings)
+    size_t removed;
+    while (i < oSymTable->length && removed < oSymTable->bindings)
     {
         struct Binding *cur = oSymTable->buckets[i];
         while (cur != NULL && i < oSymTable->bindings)
@@ -179,9 +180,10 @@ void SymTable_expand(SymTable_T oSymTable)
             */
             free(cur);
             cur=cur->next;
-            i++;
+            removed++;
         }
         oSymTable->buckets[i] = NULL;
+        i++;
     }
   }
 
