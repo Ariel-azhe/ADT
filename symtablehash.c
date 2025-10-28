@@ -13,6 +13,158 @@ size_t bucket_cnts[] = {509, 1021, 2039, 4093, 8191, 16381, 32749, 65521};
     size_t length;
     };
 
+    static void testLargeTable(int iBindingCount)
+    {
+   enum {MAX_KEY_LENGTH = 10};
+
+   SymTable_T oSymTable;
+   SymTable_T oSymTableSmall;
+   char acKey[MAX_KEY_LENGTH];
+   char *pcValue;
+   int i;
+   int iSmall;
+   int iLarge;
+   int iSuccessful;
+   size_t uLength = 0;
+   size_t uLength2;
+
+   printf("------------------------------------------------------\n");
+   printf("Testing a potentially large SymTable object.\n");
+   printf("No output except CPU time consumed should appear here:\n");
+   fflush(stdout);
+
+   /* Note the current time. */
+
+   /* Create oSymTableSmall, and put a couple of bindings into it. */
+   oSymTableSmall = SymTable_new();
+   ASSURE(oSymTableSmall != NULL);
+   iSuccessful = SymTable_put(oSymTableSmall, "xxx", "xxx");
+   ASSURE(iSuccessful);
+   iSuccessful = SymTable_put(oSymTableSmall, "yyy", "yyy");
+   ASSURE(iSuccessful);
+
+   /* Create oSymTable, the primary SymTable object. */
+   oSymTable = SymTable_new();
+   ASSURE(oSymTable != NULL);
+
+   /* Put iBindingCount new bindings into oSymTable.  Each binding's
+      key and value contain the same characters. */
+   for (i = 0; i < iBindingCount; i++)
+   {
+      sprintf(acKey, "%d", i);
+      pcValue = (char*)malloc(sizeof(char) * (strlen(acKey) + 1));
+      ASSURE(pcValue != NULL);
+      strcpy(pcValue, acKey);
+      iSuccessful = SymTable_put(oSymTable, acKey, pcValue);
+      ASSURE(iSuccessful);
+      uLength = SymTable_getLength(oSymTable);
+      ASSURE(uLength == (size_t)(i+1));
+   }
+
+   /* Get each binding's value, and make sure that it contains
+      the same characters as its key. */
+   iSmall = 0;
+   iLarge = iBindingCount - 1;
+   while (iSmall < iLarge)
+   {
+      /* Get the smallest of the remaining bindings. */
+      sprintf(acKey, "%d", iSmall);
+      pcValue = (char*)SymTable_get(oSymTable, acKey);
+      ASSURE(pcValue != NULL);
+      ASSURE((pcValue != NULL) && (strcmp(pcValue, acKey) == 0));
+      iSmall++;
+      /* Get the largest of the remaining bindings. */
+      sprintf(acKey, "%d", iLarge);
+      pcValue = (char*)SymTable_get(oSymTable, acKey);
+      ASSURE(pcValue != NULL);
+      ASSURE((pcValue != NULL) && (strcmp(pcValue, acKey) == 0));
+      iLarge--;
+   }
+   /* Get the middle binding -- if there is one. */
+   if (iSmall == iLarge)
+   {
+      sprintf(acKey, "%d", iSmall);
+      pcValue = (char*)SymTable_get(oSymTable, acKey);
+      ASSURE(pcValue != NULL);
+      ASSURE((pcValue != NULL) && (strcmp(pcValue, acKey) == 0));
+   }
+
+   /* Remove each binding. Also free each binding's value. */
+   iSmall = 0;
+   iLarge = iBindingCount - 1;
+   while (iSmall < iLarge)
+   {
+      /* Remove the smallest of the remaining bindings. */
+      sprintf(acKey, "%d", iSmall);
+      pcValue = (char*)SymTable_remove(oSymTable, acKey);
+      ASSURE(pcValue != NULL);
+      ASSURE((pcValue != NULL) && (strcmp(pcValue, acKey) == 0));
+      free(pcValue);
+      uLength--;
+      uLength2 = SymTable_getLength(oSymTable);
+      ASSURE(uLength2 == uLength);
+      iSmall++;
+      /* Remove the largest of the remaining bindings. */
+      sprintf(acKey, "%d", iLarge);
+      pcValue = (char*)SymTable_remove(oSymTable, acKey);
+      ASSURE(pcValue != NULL);
+      ASSURE((pcValue != NULL) && (strcmp(pcValue, acKey) == 0));
+      free(pcValue);
+      uLength--;
+      uLength2 = SymTable_getLength(oSymTable);
+      ASSURE(uLength2 == uLength);
+      iLarge--;
+   }
+   /* Remove the middle binding -- if there is one. */
+   if (iSmall == iLarge)
+   {
+      sprintf(acKey, "%d", iSmall);
+      pcValue = (char*)SymTable_remove(oSymTable, acKey);
+      ASSURE(pcValue != NULL);
+      ASSURE((pcValue != NULL) && (strcmp(pcValue, acKey) == 0));
+      free(pcValue);
+      uLength--;
+      uLength2 = SymTable_getLength(oSymTable);
+      ASSURE(uLength2 == uLength);  
+   }
+
+   /* Make sure oSymTableSmall hasn't been corrupted by expansion
+      of oSymTable. */
+   pcValue = (char*)SymTable_get(oSymTableSmall, "xxx");
+   ASSURE((pcValue != NULL) && (strcmp(pcValue, "xxx") == 0));
+   pcValue = (char*)SymTable_get(oSymTableSmall, "yyy");
+   ASSURE((pcValue != NULL) && (strcmp(pcValue, "yyy") == 0));
+
+   /* Free both SymTable objects. */
+   SymTable_free(oSymTable);
+   SymTable_free(oSymTableSmall);
+}
+    
+   int main(void)
+    {
+        int iBindingCount;
+
+        #ifndef S_SPLINT_S
+   setCpuTimeLimit();
+#endif
+
+   testBasics();
+   testKeyComparison();
+   testKeyOwnership();
+   testRemove();
+   testMap();
+   testEmptyTable();
+   testEmptyKey();
+   testNullValue();
+   testLongKey();
+   testTableOfTables();
+   testCollisions();
+   testLargeTable(iBindingCount);
+
+   printf("------------------------------------------------------\n");
+   return 0;
+    }
+
 
 /*creates new empty symbol table or returns NULL
     if insufficient memory*/
@@ -107,6 +259,8 @@ void SymTable_expand(SymTable_T oSymTable)
         struct Binding *cur = oSymTable->buckets[i];
         while (cur != NULL)
         {
+            free((void*)cur->key);
+            cur->key = NULL;
             free(cur);
             cur=cur->next;
         }
