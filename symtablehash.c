@@ -51,7 +51,6 @@ void SymTable_expand(SymTable_T oSymTable)
     {
         return;
     }
-    bindex++;
     oSymTable->length = bucket_cnts[bindex];
     oSymTable->buckets = new_buckets;
     while (i < bucket_cnts[bindex - 1])
