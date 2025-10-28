@@ -928,6 +928,7 @@ static void testLargeTable(int iBindingCount)
    into a potentially large SymTable object.  Exit with EXIT_FAILURE
    if argv[1] is missing or not numeric.  Otherwise return 0. */
 
+   /*
 int main(int argc, char *argv[])
 {
    int iBindingCount;
@@ -970,3 +971,4 @@ int main(int argc, char *argv[])
    printf("End of %s.\n", argv[0]);
    return 0;
 }
+   */
