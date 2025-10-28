@@ -65,6 +65,7 @@ static size_t SymTable_hash(const char *pcKey, size_t uBucketCount)
      {
         struct Binding *cur = NULL;
         struct Binding *newB;
+        char *svalue = NULL;
         if (hkeys[(int)*pcKey] == 0)
         {
             hkeys[(int)*pcKey] = SymTable_hash(pcKey, BUCKET_COUNT);
@@ -76,6 +77,7 @@ static size_t SymTable_hash(const char *pcKey, size_t uBucketCount)
         cur = oSymTable->buckets[hkeys[(int)*pcKey]];
         newB = (struct Binding*)calloc(1, sizeof(struct Binding));
         newB->key = pcKey;
+        svalue = (char *)pvValue;
         newB->value = *((int *)pvValue);
         newB->next = cur;
         oSymTable->buckets[hkeys[(int)*pcKey]] = newB;
@@ -134,7 +136,7 @@ static size_t SymTable_hash(const char *pcKey, size_t uBucketCount)
   void *SymTable_get(SymTable_T oSymTable, const char *pcKey)
   {
     struct Binding *cur = NULL;
-    char *rvalue = NULL;
+    int *rvalue = NULL;
     int *svalue = NULL;
     if (hkeys[(int)*pcKey] == 0)
     {
@@ -145,8 +147,7 @@ static size_t SymTable_hash(const char *pcKey, size_t uBucketCount)
     {
         if (!(strcmp(pcKey, cur->key)))
         {
-            svalue = &(cur->value);
-            strcpy(rvalue, (char*)svalue);
+            rvalue = &(cur->value);
             return (void*)rvalue;
         }
         cur=cur->next;
