@@ -143,7 +143,6 @@ void SymTable_expand(SymTable_T oSymTable)
                 }
                 cur = nmemo;
                 nmemo->next = hnext;
-                oSymTable->buckets[prev_hval] = pnext;
                 oSymTable->buckets[hvalue] = nmemo;
                 if (prev == cur)
                 {
@@ -169,7 +168,7 @@ void SymTable_expand(SymTable_T oSymTable)
   void SymTable_free(SymTable_T oSymTable)
   {
     size_t i = 0;
-    while (i < oSymTable->length)
+    while (i < oSymTable->bindings)
     {
         struct Binding *cur = oSymTable->buckets[i];
         while (cur != NULL)
@@ -180,9 +179,9 @@ void SymTable_expand(SymTable_T oSymTable)
             */
             free(cur);
             cur=cur->next;
+            i++;
         }
         oSymTable->buckets[i] = NULL;
-        i++;
     }
   }
 
