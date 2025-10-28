@@ -74,7 +74,6 @@ void SymTable_expand(SymTable_T oSymTable)
             newB->value = cur->value;
             newB->next = hnext;
             oSymTable->buckets[hvalue] = newB;
-            oSymTable->bindings++;
             pnext = cur->next;
             if (prev == cur)
             {
