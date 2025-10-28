@@ -1,12 +1,4 @@
 #include "symtable.h"
-#ifndef S_SPLINT_S
-#include <sys/resource.h>
-#endif
-
-/*--------------------------------------------------------------------*/
-
-#define ASSURE(i) assure(i, __LINE__)
-
 
 size_t bindex = 0;
 size_t bucket_cnts[] = {1, 2, 7, 4093, 8191, 16381, 32749, 65521};
@@ -30,52 +22,7 @@ size_t bucket_cnts[] = {1, 2, 7, 4093, 8191, 16381, 32749, 65521};
       fflush(stdout);
    }
 }
-    static void testLargeTable(int iBindingCount)
-    {
-   enum {MAX_KEY_LENGTH = 10};
 
-   SymTable_T oSymTable;
-   SymTable_T oSymTableSmall;
-   char acKey[MAX_KEY_LENGTH];
-   char *pcValue;
-   int i;
-   int iSmall;
-   int iLarge;
-   int iSuccessful;
-   size_t uLength = 0;
-   size_t uLength2;
-
-   printf("------------------------------------------------------\n");
-   printf("Testing a potentially large SymTable object.\n");
-   printf("No output except CPU time consumed should appear here:\n");
-   fflush(stdout);
-
-   /* Note the current time. */
-
-   /* Create oSymTableSmall, and put a couple of bindings into it. */
-   oSymTableSmall = SymTable_new();
-   ASSURE(oSymTableSmall != NULL);
-   iSuccessful = SymTable_put(oSymTableSmall, "xxx", "xxx");
-   ASSURE(iSuccessful);
-   iSuccessful = SymTable_put(oSymTableSmall, "yyy", "yyy");
-   ASSURE(iSuccessful);
-
-   /* Make sure oSymTableSmall hasn't been corrupted by expansion
-      of oSymTable. */
-   pcValue = (char*)SymTable_get(oSymTableSmall, "xxx");
-   ASSURE((pcValue != NULL) && (strcmp(pcValue, "xxx") == 0));
-   pcValue = (char*)SymTable_get(oSymTableSmall, "yyy");
-   ASSURE((pcValue != NULL) && (strcmp(pcValue, "yyy") == 0));
-
-   /* Free both SymTable objects. */
-   SymTable_free(oSymTableSmall);
-}
-    
-int main(void)
-{
-   testLargeTable(2);
-   return 0;
-}
 
 
 /*creates new empty symbol table or returns NULL
