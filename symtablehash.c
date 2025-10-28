@@ -102,10 +102,10 @@ void SymTable_expand(SymTable_T oSymTable)
   {
     size_t i = 0;
     size_t removed;
-    while (i < oSymTable->length && removed < oSymTable->bindings)
+    while ((i < oSymTable->length) && (removed < oSymTable->bindings))
     {
         struct Binding *cur = oSymTable->buckets[i];
-        while (cur != NULL && i < oSymTable->bindings)
+        while (cur != NULL)
         {
             /*
             free((void*)cur->key);
