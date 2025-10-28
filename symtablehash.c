@@ -1,6 +1,7 @@
 #include "symtable.h"
 
-size_t bucket_count = 509;
+size_t bindex = 0;
+size_t *bucket_cnts = {1, 2, 2039, 4093, 8191, 16381, 32749, 65521};
     struct Binding {
     const char *key;
     const void* value;
@@ -18,9 +19,9 @@ size_t bucket_count = 509;
     SymTable_T SymTable_new(void)
     {
         SymTable_T sym = (struct Table*)calloc(1, sizeof(struct Table));
-        sym->buckets = (struct Binding **)calloc(bucket_count, sizeof(struct Binding));
+        sym->buckets = (struct Binding **)calloc(bucket_cnts[bindex], sizeof(struct Binding));
         sym->bindings = 0;
-        sym->length = bucket_count;
+        sym->length = bucket_cnts[bindex];
         return sym;
     }
 /* Return a hash code for pcKey that is between 0 and uBucketCount-1,
@@ -44,15 +45,16 @@ a certain amount*/
 void SymTable_expand(SymTable_T oSymTable)
 {
     struct Binding ** new_buckets = 
-    (struct Binding**)realloc(oSymTable->buckets, bucket_count*2*sizeof(struct Binding));
+    (struct Binding**)realloc(oSymTable->buckets, bucket_cnts[bindex]*2*sizeof(struct Binding));
     size_t i = 0;
     if (new_buckets == NULL)
     {
         return;
     }
-    oSymTable->length = oSymTable->length * 2;
+    bindex++;
+    oSymTable->length = bucket_cnts[bindex];
     oSymTable->buckets = new_buckets;
-    while (i < bucket_count)
+    while (i < bucket_cnts[bindex - 1])
     {
         struct Binding *cur = oSymTable->buckets[i];
         int prev_hval = 0;
@@ -63,7 +65,7 @@ void SymTable_expand(SymTable_T oSymTable)
         struct Binding *pnext = NULL;
         while (cur != NULL)
         {
-            prev_hval = SymTable_hash(cur->key, bucket_count);
+            prev_hval = SymTable_hash(cur->key, bucket_cnts[bindex-1]);
             hvalue = SymTable_hash(cur->key, oSymTable->length);
             hnext = oSymTable->buckets[hvalue];
             newB = (struct Binding*)calloc(1, sizeof(struct Binding));
@@ -90,7 +92,6 @@ void SymTable_expand(SymTable_T oSymTable)
         }
         i++;
     }
-    bucket_count = bucket_count*2;
 }
 
 
@@ -128,7 +129,7 @@ void SymTable_expand(SymTable_T oSymTable)
         struct Binding *newB;
         int hvalue = 0;
         size_t cur_len = 0;
-        hvalue = SymTable_hash(pcKey, bucket_count);
+        hvalue = SymTable_hash(pcKey, bucket_cnts[bindex]);
         if (SymTable_contains(oSymTable, pcKey))
         {
             return 0;
@@ -158,7 +159,7 @@ void SymTable_expand(SymTable_T oSymTable)
         void *rvalue = NULL;
         struct Binding *cur = NULL;
         int hvalue = 0;
-        hvalue = SymTable_hash(pcKey, bucket_count);
+        hvalue = SymTable_hash(pcKey, bucket_cnts[bindex]);
         cur = oSymTable->buckets[hvalue];
         while (cur != NULL)
         {
@@ -178,7 +179,7 @@ void SymTable_expand(SymTable_T oSymTable)
   {
     struct Binding *cur = NULL;
     int hvalue = 0;
-    hvalue = SymTable_hash(pcKey, bucket_count);
+    hvalue = SymTable_hash(pcKey, bucket_cnts[bindex]);
     cur = oSymTable->buckets[hvalue];
     while (cur != NULL)
     {
@@ -197,7 +198,7 @@ void SymTable_expand(SymTable_T oSymTable)
   {
     struct Binding *cur = NULL;
     int hvalue = 0;
-    hvalue = SymTable_hash(pcKey, bucket_count);
+    hvalue = SymTable_hash(pcKey, bucket_cnts[bindex]);
     cur = oSymTable->buckets[hvalue];
     while (cur != NULL)
     {
@@ -220,7 +221,7 @@ void SymTable_expand(SymTable_T oSymTable)
     struct Binding *bnext = NULL;
     void *pvValue = NULL;
     int hvalue = 0;
-    hvalue = SymTable_hash(pcKey, bucket_count);
+    hvalue = SymTable_hash(pcKey, bucket_cnts[bindex]);
     cur = oSymTable->buckets[hvalue];
     while (cur != NULL)
     {
