@@ -45,7 +45,7 @@ void SymTable_expand(SymTable_T oSymTable)
 {
     struct Binding ** new_buckets = 
     (struct Binding**)realloc(oSymTable->buckets, bucket_count*2*sizeof(struct Binding));
-    int i = 0;
+    size_t i = 0;
     if (new_buckets == NULL)
     {
         return;
@@ -110,12 +110,13 @@ void SymTable_expand(SymTable_T oSymTable)
         struct Binding *cur = NULL;
         struct Binding *newB;
         int hvalue = 0;
+        int cur_len = 0;
         hvalue = SymTable_hash(pcKey, bucket_count);
         if (SymTable_contains(oSymTable, pcKey))
         {
             return 0;
         }
-        int cur_len = oSymTable->length;
+        cur_len = oSymTable->length;
         if (oSymTable->bindings == cur_len - 1)
         {
             SymTable_expand(oSymTable);
