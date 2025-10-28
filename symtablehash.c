@@ -110,7 +110,7 @@ void SymTable_expand(SymTable_T oSymTable)
         struct Binding *cur = NULL;
         struct Binding *newB;
         int hvalue = 0;
-        int cur_len = 0;
+        size_t cur_len = 0;
         hvalue = SymTable_hash(pcKey, bucket_count);
         if (SymTable_contains(oSymTable, pcKey))
         {
