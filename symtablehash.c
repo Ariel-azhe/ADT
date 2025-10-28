@@ -134,7 +134,7 @@ static size_t SymTable_hash(const char *pcKey, size_t uBucketCount)
   void *SymTable_get(SymTable_T oSymTable, const char *pcKey)
   {
     struct Binding *cur = NULL;
-    int *rvalue = NULL;
+    char *rvalue = NULL;
     if (hkeys[(int)*pcKey] == 0)
     {
         hkeys[(int)*pcKey] = SymTable_hash(pcKey, BUCKET_COUNT);
@@ -144,7 +144,7 @@ static size_t SymTable_hash(const char *pcKey, size_t uBucketCount)
     {
         if (!(strcmp(pcKey, cur->key)))
         {
-            rvalue = &(cur->value);
+            strcpy(rvalue, (char*)cur->value);
             return (void*)rvalue;;
         }
         cur=cur->next;
