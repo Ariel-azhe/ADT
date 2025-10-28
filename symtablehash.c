@@ -194,10 +194,11 @@ static size_t SymTable_hash(const char *pcKey, size_t uBucketCount)
 a certain amount*/
 void SymTable_expand(SymTable_T oSymTable)
 {
-    print("expanded");
     struct Binding ** new_buckets = 
     (struct Binding**)realloc(oSymTable->buckets, bucket_cnts[bindex++]*sizeof(struct Binding));
     size_t i = 0;
+    printf("expanded");
+
     if (new_buckets == NULL)
     {
         return;
