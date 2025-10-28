@@ -127,16 +127,10 @@ void SymTable_expand(SymTable_T oSymTable)
         struct Binding *cur = NULL;
         struct Binding *newB;
         int hvalue = 0;
-        size_t cur_len = 0;
         hvalue = SymTable_hash(pcKey, bucket_cnts[bindex]);
         if (SymTable_contains(oSymTable, pcKey))
         {
             return 0;
-        }
-        cur_len = oSymTable->length;
-        if (oSymTable->bindings == cur_len - 1)
-        {
-            SymTable_expand(oSymTable);
         }
         cur = oSymTable->buckets[hvalue];
         newB = (struct Binding*)calloc(1, sizeof(struct Binding));
@@ -146,6 +140,10 @@ void SymTable_expand(SymTable_T oSymTable)
         newB->next = cur;
         oSymTable->buckets[hvalue] = newB;
         oSymTable->bindings++;
+        if (oSymTable->bindings == oSymTable->length)
+        {
+            SymTable_expand(oSymTable);
+        }
         return 1;
      }
     
