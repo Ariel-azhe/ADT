@@ -259,8 +259,10 @@ void SymTable_expand(SymTable_T oSymTable)
         struct Binding *cur = oSymTable->buckets[i];
         while (cur != NULL)
         {
+            /*
             free((void*)cur->key);
             cur->key = NULL;
+            */
             free(cur);
             cur=cur->next;
         }
