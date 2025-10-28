@@ -122,7 +122,6 @@ static void testBasics(void)
    uLength = SymTable_getLength(oSymTable);
    ASSURE(uLength == 1);
 
-   
    iSuccessful = SymTable_put(oSymTable, acMantle, acCenterField);
    ASSURE(iSuccessful);
 
@@ -134,7 +133,6 @@ static void testBasics(void)
 
    uLength = SymTable_getLength(oSymTable);
    ASSURE(uLength == 3);
-   
 
    iSuccessful = SymTable_put(oSymTable, acRuth, acRightField);
    ASSURE(iSuccessful);
@@ -661,10 +659,10 @@ static void testTableOfTables(void)
    oSymTable1 = SymTable_new();
    ASSURE(oSymTable1 != NULL);
 
-   
    iSuccessful = SymTable_put(oSymTable1, "Jeter", acShortstop);
    ASSURE(iSuccessful);
 
+   
    oSymTable2 = SymTable_new();
    ASSURE(oSymTable2 != NULL);
 
@@ -706,7 +704,6 @@ static void testTableOfTables(void)
    implementation uses the hash function provided in the assignment
    specification. */
 
-   /*
 static void testCollisions(void)
 {
    SymTable_T oSymTable;
@@ -731,7 +728,6 @@ static void testCollisions(void)
    /* Note that strings "250", "469", "947", "1303", and "2016" hash
       to the same bucket -- bucket 123. */
 
-      /*
    iSuccessful = SymTable_put(oSymTable, "250", acCenterField);
    ASSURE(iSuccessful);
 
@@ -778,9 +774,7 @@ static void testCollisions(void)
    ASSURE(pcValue == acRightField);
 
    SymTable_free(oSymTable);
-   
 }
-*/
 
 /*--------------------------------------------------------------------*/
 
@@ -840,7 +834,6 @@ static void testLargeTable(int iBindingCount)
 
    /* Get each binding's value, and make sure that it contains
       the same characters as its key. */
-   
    iSmall = 0;
    iLarge = iBindingCount - 1;
    while (iSmall < iLarge)
@@ -908,7 +901,6 @@ static void testLargeTable(int iBindingCount)
 
    /* Make sure oSymTableSmall hasn't been corrupted by expansion
       of oSymTable. */
-      
    pcValue = (char*)SymTable_get(oSymTableSmall, "xxx");
    ASSURE((pcValue != NULL) && (strcmp(pcValue, "xxx") == 0));
    pcValue = (char*)SymTable_get(oSymTableSmall, "yyy");
@@ -934,7 +926,6 @@ static void testLargeTable(int iBindingCount)
    into a potentially large SymTable object.  Exit with EXIT_FAILURE
    if argv[1] is missing or not numeric.  Otherwise return 0. */
 
-   /*
 int main(int argc, char *argv[])
 {
    int iBindingCount;
@@ -977,4 +968,3 @@ int main(int argc, char *argv[])
    printf("End of %s.\n", argv[0]);
    return 0;
 }
-   */
