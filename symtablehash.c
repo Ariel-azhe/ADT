@@ -234,12 +234,15 @@ void SymTable_expand(SymTable_T oSymTable)
                 {
                     prev->next = pnext;
                 }
-                free((void*)cur->key);
-                cur->key = NULL;
                 free(cur);
+                cur = pnext;
             }
-            prev = cur;
-            cur=cur->next;
+            else
+            {
+                prev = cur;
+                cur=cur->next;
+            }
+        
         }
         i++;
     }
