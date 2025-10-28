@@ -99,7 +99,7 @@ static size_t SymTable_hash(const char *pcKey, size_t uBucketCount)
         {
             if (!(strcmp(pcKey, cur->key)))
             {
-                rvalue = &(cur->value);
+                rvalue = (void*)cur->value;
                 cur->value = pvValue;
             }
             cur=cur->next;
@@ -142,7 +142,7 @@ static size_t SymTable_hash(const char *pcKey, size_t uBucketCount)
         }
         cur=cur->next;
     }
-    return (void*)cur->value;
+    return NULL;
   }
 
   /*Remove the binding with key pcKey in oSymTable and return
