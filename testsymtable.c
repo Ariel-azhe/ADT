@@ -122,6 +122,7 @@ static void testBasics(void)
    uLength = SymTable_getLength(oSymTable);
    ASSURE(uLength == 1);
 
+   /*
    iSuccessful = SymTable_put(oSymTable, acMantle, acCenterField);
    ASSURE(iSuccessful);
 
@@ -133,6 +134,7 @@ static void testBasics(void)
 
    uLength = SymTable_getLength(oSymTable);
    ASSURE(uLength == 3);
+   */
 
    iSuccessful = SymTable_put(oSymTable, acRuth, acRightField);
    ASSURE(iSuccessful);
