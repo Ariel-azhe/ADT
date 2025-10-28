@@ -93,7 +93,7 @@ void SymTable_expand(SymTable_T oSymTable)
                 {
                     oSymTable->buckets[prev_hval] = pnext;
                 }
-                else
+                else if (prev != NULL)
                 {
                     prev->next = pnext;
                 }
