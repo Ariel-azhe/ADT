@@ -3,22 +3,25 @@
 enum { BUCKET_COUNT = 509 };
     struct Binding {
     const char *key;
-    int value;
+    const void* value;
     struct Binding *next;
     };
     struct Table {
-    struct Binding *buckets[BUCKET_COUNT];
+    struct Binding **buckets;
+    size_t bindings;
+    size_t length;
     };
 
 
-size_t bindings = 0;
-int hkeys[BUCKET_COUNT];
 /*creates new empty symbol table or returns NULL
     if insufficient memory*/
     SymTable_T SymTable_new(void)
     {
-        SymTable_T table = (SymTable_T)calloc(1, sizeof(struct Table));
-        return table;
+        SymTable_T sym = (struct Table*)calloc(1, sizeof(struct Table));
+        sym->buckets = (struct Binding **)calloc(BUCKET_COUNT, sizeof(struct Binding));
+        sym->bindings = 0;
+        sym->length = BUCKET_COUNT;
+        return sym;
     }
 
 static size_t SymTable_hash(const char *pcKey, size_t uBucketCount)
@@ -38,7 +41,7 @@ static size_t SymTable_hash(const char *pcKey, size_t uBucketCount)
   void SymTable_free(SymTable_T oSymTable)
   {
     size_t i = 0;
-    while (i < sizeof(oSymTable->buckets))
+    while (i < oSymTable->length)
     {
         struct Binding *cur = oSymTable->buckets[i];
         while (cur != NULL)
@@ -54,7 +57,7 @@ static size_t SymTable_hash(const char *pcKey, size_t uBucketCount)
   /*returns the number of bindings in oSymTable*/
   size_t SymTable_getLength(SymTable_T oSymTable)
   {
-    return bindings;
+    return oSymTable->bindings;
   }
 
   /*Adds a new binding with key pcKey and value pvValue to oSymTable
@@ -65,25 +68,19 @@ static size_t SymTable_hash(const char *pcKey, size_t uBucketCount)
      {
         struct Binding *cur = NULL;
         struct Binding *newB;
-        char cvalue = 0;
-        int ivalue = 0;
-        if (hkeys[(int)*pcKey] == 0)
-        {
-            hkeys[(int)*pcKey] = SymTable_hash(pcKey, BUCKET_COUNT);
-        }
+        int hvalue = 0;
+        hvalue = SymTable_hash(pcKey, BUCKET_COUNT);
         if (SymTable_contains(oSymTable, pcKey))
         {
             return 0;
         }
-        cur = oSymTable->buckets[hkeys[(int)*pcKey]];
+        cur = oSymTable->buckets[hvalue];
         newB = (struct Binding*)calloc(1, sizeof(struct Binding));
         newB->key = pcKey;
-        cvalue = *((char*)pvValue);
-        ivalue = cvalue;
-        newB->value = ivalue;
+        newB->value = pvValue;
         newB->next = cur;
-        oSymTable->buckets[hkeys[(int)*pcKey]] = newB;
-        bindings++;
+        oSymTable->buckets[hvalue] = newB;
+        oSymTable->bindings++;
         return 1;
      }
     
@@ -95,17 +92,15 @@ static size_t SymTable_hash(const char *pcKey, size_t uBucketCount)
      {
         void *rvalue = NULL;
         struct Binding *cur = NULL;
-        if (hkeys[(int)*pcKey] == 0)
-        {
-            hkeys[(int)*pcKey] = SymTable_hash(pcKey, BUCKET_COUNT);
-        }
-        cur = oSymTable->buckets[hkeys[(int)*pcKey]];
+        int hvalue = 0;
+        hvalue = SymTable_hash(pcKey, BUCKET_COUNT);
+        cur = oSymTable->buckets[hvalue];
         while (cur != NULL)
         {
             if (!(strcmp(pcKey, cur->key)))
             {
                 rvalue = &(cur->value);
-                cur->value = *((int*)pvValue);
+                cur->value = pvValue;
             }
             cur=cur->next;
         }
@@ -117,11 +112,9 @@ static size_t SymTable_hash(const char *pcKey, size_t uBucketCount)
   int SymTable_contains(SymTable_T oSymTable, const char *pcKey)
   {
     struct Binding *cur = NULL;
-    if (hkeys[(int)*pcKey] == 0)
-    {
-        hkeys[(int)*pcKey] = SymTable_hash(pcKey, BUCKET_COUNT);
-    }
-    cur = oSymTable->buckets[hkeys[(int)*pcKey]];
+    int hvalue = 0;
+    hvalue = SymTable_hash(pcKey, BUCKET_COUNT);
+    cur = oSymTable->buckets[hvalue];
     while (cur != NULL)
     {
         if (!(strcmp(pcKey, cur->key)))
@@ -138,23 +131,18 @@ static size_t SymTable_hash(const char *pcKey, size_t uBucketCount)
   void *SymTable_get(SymTable_T oSymTable, const char *pcKey)
   {
     struct Binding *cur = NULL;
-    int *rvalue = NULL;
-    char *svalue = NULL;
-    if (hkeys[(int)*pcKey] == 0)
-    {
-        hkeys[(int)*pcKey] = SymTable_hash(pcKey, BUCKET_COUNT);
-    }
-    cur = oSymTable->buckets[hkeys[(int)*pcKey]];
+    int hvalue = 0;
+    hvalue = SymTable_hash(pcKey, BUCKET_COUNT);
+    cur = oSymTable->buckets[hvalue];
     while (cur != NULL)
     {
         if (!(strcmp(pcKey, cur->key)))
         {
-            rvalue = &(cur->value);
-            return (void*)rvalue;
+            return (void*)cur->value;
         }
         cur=cur->next;
     }
-    return (void*)rvalue;
+    return (void*)cur->value;
   }
 
   /*Remove the binding with key pcKey in oSymTable and return
@@ -166,20 +154,18 @@ static size_t SymTable_hash(const char *pcKey, size_t uBucketCount)
     struct Binding *prev = NULL;
     struct Binding *bnext = NULL;
     void *pvValue = NULL;
-    if (hkeys[(int)*pcKey] == 0)
-    {
-        hkeys[(int)*pcKey] = SymTable_hash(pcKey, BUCKET_COUNT);
-    }
-    cur = oSymTable->buckets[hkeys[(int)*pcKey]];
+    int hvalue = 0;
+    hvalue = SymTable_hash(pcKey, BUCKET_COUNT);
+    cur = oSymTable->buckets[hvalue];
     while (cur != NULL)
     {
         if (!(strcmp(pcKey, cur->key)))
         {
             bnext = cur->next;
-            pvValue = &(cur->value);
-            if (oSymTable->buckets[hkeys[(int)*pcKey]] == cur)
+            pvValue = (void*)(cur->value);
+            if (oSymTable->buckets[hvalue] == cur)
             {
-                oSymTable->buckets[hkeys[(int)*pcKey]] = bnext;
+                oSymTable->buckets[hvalue] = bnext;
             }
             else
             {
@@ -189,7 +175,7 @@ static size_t SymTable_hash(const char *pcKey, size_t uBucketCount)
             cur->key = NULL;
             free(cur);
             cur = NULL;
-            bindings--;
+            oSymTable->bindings--;
         }
         else
         {
@@ -197,7 +183,7 @@ static size_t SymTable_hash(const char *pcKey, size_t uBucketCount)
             cur=cur->next;
         }
     }
-        return (void*)pvValue;
+        return pvValue;
   }
 
   /*Applies function *pfApply to all bindings in oSymTable with
@@ -207,14 +193,12 @@ static size_t SymTable_hash(const char *pcKey, size_t uBucketCount)
      const void *pvExtra)
      {
         size_t i = 0;
-        void *rvalue;
-        while (i < sizeof(oSymTable->buckets))
+        while (i < oSymTable->length)
         {
             struct Binding *cur = oSymTable->buckets[i];
             while (cur != NULL)
             {
-                rvalue = &(cur->value);
-                (*pfApply)(cur->key, rvalue, (void*)pvExtra);
+                (*pfApply)(cur->key, (void*)cur->value, (void*)pvExtra);
                 cur=cur->next;
             }
             i++;
