@@ -66,26 +66,30 @@ void SymTable_expand(SymTable_T oSymTable)
         {
             prev_hval = SymTable_hash(cur->key, bucket_cnts[bindex-1]);
             hvalue = SymTable_hash(cur->key, oSymTable->length);
-            hnext = oSymTable->buckets[hvalue];
-            newB = (struct Binding*)calloc(1, sizeof(struct Binding));
-            newB->key = (const char*)malloc(strlen(cur->key) + 1);
-            strcpy((char*)newB->key, cur->key);
-            newB->value = cur->value;
-            newB->next = hnext;
-            oSymTable->buckets[hvalue] = newB;
-            pnext = cur->next;
-            if (prev == cur)
+            if (prev_hval != hvalue)
             {
-                oSymTable->buckets[prev_hval] = pnext;
+                hnext = oSymTable->buckets[hvalue];
+                newB = (struct Binding*)calloc(1, sizeof(struct Binding));
+                newB->key = (const char*)malloc(strlen(cur->key) + 1);
+                strcpy((char*)newB->key, cur->key);
+                newB->value = cur->value;
+                newB->next = hnext;
+                oSymTable->buckets[hvalue] = newB;
+                pnext = cur->next;
+                if (prev == cur)
+                {
+                    oSymTable->buckets[prev_hval] = pnext;
+                }
+                else if (prev != NULL)
+                {
+                    prev->next = pnext;
+                }
+                free((void*)cur->key);
+                cur->key = NULL;
+                prev = cur;
+                free(cur);
             }
-            else if (prev != NULL)
-            {
-                prev->next = pnext;
-            }
-            free((void*)cur->key);
-            cur->key = NULL;
             prev = cur;
-            free(cur);
             cur=cur->next;
         }
         i++;
