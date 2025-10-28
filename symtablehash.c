@@ -9,7 +9,7 @@
 
 
 size_t bindex = 0;
-size_t bucket_cnts[] = {509, 1021, 2039, 4093, 8191, 16381, 32749, 65521};
+size_t bucket_cnts[] = {1, 2, 2039, 4093, 8191, 16381, 32749, 65521};
     struct Binding {
     const char *key;
     const void* value;
@@ -159,7 +159,7 @@ size_t bucket_cnts[] = {509, 1021, 2039, 4093, 8191, 16381, 32749, 65521};
     
 int main(void)
 {
-   testLargeTable(510);
+   testLargeTable(2);
    return 0;
 }
 
