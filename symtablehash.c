@@ -342,6 +342,7 @@ void SymTable_expand(SymTable_T oSymTable)
     printf("\n");
     while (cur != NULL)
     {
+        printf("cur is not null.");
         if (!(strcmp(pcKey, cur->key)))
         {
             return (void*)cur->value;
