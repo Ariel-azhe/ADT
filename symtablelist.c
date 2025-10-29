@@ -1,3 +1,5 @@
+/*this file implements the symtable client functions with
+an underlying linked list structure*/
 #include "symtable.h"
 
 /*the number of key-value pairs in the list currently*/

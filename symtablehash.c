@@ -1,5 +1,5 @@
 /*this file implements the symtable client functions with
-an underlying hashing and linked list structure*/
+an underlying separate chaining hash structure*/
 #include "symtable.h"
 
 /*keeps track of which expansion attempt program is on*/
