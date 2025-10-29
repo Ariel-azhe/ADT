@@ -188,9 +188,7 @@ void SymTable_expand(SymTable_T oSymTable)
         oSymTable->bindings++;
         if (oSymTable->bindings == oSymTable->length)
         {
-            /*
             SymTable_expand(oSymTable);
-            */
         }
         return 1;
      }
