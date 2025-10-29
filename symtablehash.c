@@ -86,6 +86,7 @@ static void SymTable_expand(SymTable_T oSymTable)
         struct Binding *prev = oSymTable->buckets[i];
         struct Binding *hnext = NULL;
         struct Binding *pnext = NULL;
+        /*traces through every key-value chain at a non-empty bucket*/
         while (cur != NULL)
         {
             hvalue = (int)SymTable_hash(cur->key, oSymTable->length);

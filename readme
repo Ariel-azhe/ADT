@@ -103,7 +103,12 @@ write "None."
 
 I disagree with the warning to assert pvValue and pvExtra are not null
 because they are just values associated with a key or an extra argument
-to a function. They are never dereferenced so they can be NULL.
+to a function. They are never dereferenced in my implementation
+so they can be NULL. 
+I also disagree that I absolutely need to refactor a nested line
+because it is nested in 2 if-else statements instead of all loops, 
+which doesn't effect efficiency as much. I also have clear comments
+reasoning what each layer of loop means.
 
 ------------------------------------------------------------------------
 What are the CPU times reported by testsymtable.c with binding counts
