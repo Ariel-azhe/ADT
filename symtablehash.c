@@ -253,7 +253,6 @@ void SymTable_expand(SymTable_T oSymTable)
         struct Binding *newB;
         int hvalue = 0;
         hvalue = (int)SymTable_hash(pcKey, bucket_cnts[bindex]);
-        SymTable_print(oSymTable);
         if (SymTable_contains(oSymTable, pcKey))
         {
             return 0;
@@ -274,6 +273,7 @@ void SymTable_expand(SymTable_T oSymTable)
         {
             SymTable_expand(oSymTable);
         }
+        SymTable_print(oSymTable);
         return 1;
      }
     
