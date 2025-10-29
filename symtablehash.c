@@ -76,7 +76,7 @@ void SymTable_expand(SymTable_T oSymTable)
         i++;
     }
     i = 0;
-    while (i < oSymTable->bindings)
+    while (i < bucket_cnts[bindex - 1])
     {
         struct Binding *cur = oSymTable->buckets[i];
         struct Binding *prev = NULL;
@@ -85,12 +85,21 @@ void SymTable_expand(SymTable_T oSymTable)
         struct Binding *hnext = NULL;
         struct Binding *pnext = NULL;
         struct Binding *nmemo = NULL;
-        while (cur != NULL && i < oSymTable->bindings)
+        while (cur != NULL)
         {
             prev_hval = (int)SymTable_hash(cur->key, bucket_cnts[bindex-1]);
             hvalue = (int)SymTable_hash(cur->key, oSymTable->length);
             if (prev_hval != hvalue)
             {
+                if (cur == oSymTable->buckets[i])
+                {
+                    oSymTable->buckets[i] = cur->next;
+                    prev = oSymTable->buckets[i];
+                }
+                else
+                {
+                    prev->next = cur->next;
+                }
                 pnext = cur->next;
                 hnext = oSymTable->buckets[hvalue];
                 nmemo = (struct Binding*)realloc((void*)cur, sizeof(struct Binding));
@@ -98,29 +107,18 @@ void SymTable_expand(SymTable_T oSymTable)
                 {
                     return;
                 }
-                cur = nmemo;
                 nmemo->next = hnext;
                 oSymTable->buckets[hvalue] = nmemo;
-                if (prev == NULL)
-                {
-                    oSymTable->buckets[prev_hval] = pnext;
-                }
-                else
-                {
-                    prev->next = pnext;
-                }
-            }
-            if (prev != NULL)
-            {
-                prev = prev->next;
+                cur = pnext;
             }
             else
             {
-                prev =cur;
+                prev = cur;
+                cur = cur->next;
             }
-            cur = pnext; 
-            i++;
         }
+        i++;
+
     }
     return;
 }
