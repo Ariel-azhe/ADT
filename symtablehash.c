@@ -156,7 +156,7 @@ a certain amount*/
 void SymTable_expand(SymTable_T oSymTable)
 {
     struct Binding **new_buckets;
-    if (bindex == (sizeof(bucket_cnts)/sizeof(int)) - 1)
+    if (bindex == ((int)sizeof(bucket_cnts)/(int)sizeof(int)) - 1)
     {
         return;
     }
