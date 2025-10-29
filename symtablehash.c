@@ -1,5 +1,6 @@
 #include "symtable.h"
 
+/*
 #ifndef S_SPLINT_S
 #include <sys/resource.h>
 #endif
@@ -15,6 +16,7 @@ static void assure(int iSuccessful, int iLineNum)
       fflush(stdout);
    }
 }
+   */
 
 
 /*keeps track of which expansion attempt program is on*/
@@ -42,6 +44,7 @@ static size_t bucket_cnts[] = {1, 2, 3, 10, 25, 16381, 32749, 65521};
     };
 
 
+    /*
     int main(void)
     {
         SymTable_T oSymTableSmall;
@@ -95,6 +98,7 @@ static size_t bucket_cnts[] = {1, 2, 3, 10, 25, 16381, 32749, 65521};
         SymTable_free(oSymTableSmall);
         return 0;
     }
+        */
 
 /*creates new empty symbol table or returns NULL
     if insufficient memory*/
@@ -154,7 +158,7 @@ void SymTable_expand(SymTable_T oSymTable)
     struct Binding ** new_buckets = 
     (struct Binding**)realloc(oSymTable->buckets, bucket_cnts[++bindex]*sizeof(struct Binding));
     size_t i = 0;
-    printf("expanded\n");
+    /*printf("expanded\n");*/
     if (new_buckets == NULL)
     {
         return;
@@ -180,14 +184,16 @@ void SymTable_expand(SymTable_T oSymTable)
         {
             prev_hval = (int)SymTable_hash(cur->key, bucket_cnts[bindex-1]);
             hvalue = (int)SymTable_hash(cur->key, oSymTable->length);
+            /*
             printf("previous hash: ");
             printf("%d", prev_hval);
             printf("new hash: ");
             printf("%d", hvalue);
-            printf("\n");
+            printf("\n");*/
             pnext = cur->next;
             if ((int)i != hvalue)
             {
+                /*
                 printf("reallocated ");
                 printf("%s", cur->key);
                 printf("\n");
@@ -201,9 +207,10 @@ void SymTable_expand(SymTable_T oSymTable)
                     printf("%s", prev->key);
                     printf("\n");
                 }
-            
+                */
 
                 hnext = oSymTable->buckets[hvalue];
+                /*
                 printf("new bucket starts with: ");
                 if (hnext == NULL)
                 {
@@ -214,7 +221,9 @@ void SymTable_expand(SymTable_T oSymTable)
                     printf("%s", hnext->key);
                     printf("\n");
                 }
+                    */
                 oSymTable->buckets[hvalue] = cur;
+                /*
                 printf("new bucket is filled with: ");
                 if (hnext == NULL)
                 {
@@ -225,7 +234,9 @@ void SymTable_expand(SymTable_T oSymTable)
                     printf("%s", cur->key);
                     printf("\n");
                 }
+                    */
                 cur->next = hnext;
+                /*
                 if (cur == NULL)
                 {
                     printf("cur is already null");
@@ -258,6 +269,7 @@ void SymTable_expand(SymTable_T oSymTable)
                 {
                     printf("%s", pnext->key);
                 }
+                    */
                 if (cur == oSymTable->buckets[i])
                 {
                     oSymTable->buckets[i] = pnext;
@@ -271,6 +283,7 @@ void SymTable_expand(SymTable_T oSymTable)
             }
             else
             {
+                /*
                 printf("not changed ");
                 printf("%s", cur->key);
                 printf("\n");
@@ -291,9 +304,10 @@ void SymTable_expand(SymTable_T oSymTable)
                     printf("next is ");
                     printf("%s", cur->next->key);
                     printf("    ");
-                }
+                }*/
                 prev = cur;
                 cur = cur->next;
+                /*
                 printf("prev is ");
                 if (prev == NULL)
                 {
@@ -303,9 +317,10 @@ void SymTable_expand(SymTable_T oSymTable)
                 {
                     printf("%s", prev->key);
                     printf("\n");
-                }
+                }*/
             }
-            printf("\n");
+            /*
+            printf("\n");*/
         }
         i++;
 
