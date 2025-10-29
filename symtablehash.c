@@ -97,7 +97,7 @@ void SymTable_expand(SymTable_T oSymTable)
                     oSymTable->buckets[i] = pnext;
                     prev = pnext;
                 }
-                else if (prev != NULL)
+                else if (prev != NULL && prev->next != NULL)
                 {
                     prev->next = pnext;
                 }
