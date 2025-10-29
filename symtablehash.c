@@ -14,6 +14,8 @@ static size_t bucket_cnts[] = {509, 1021, 2039, 4093, 8191, 16381, 32749, 65521}
     const void* value;
     /*the pointer to the next binding in the bucket*/
     struct Binding *next;
+    struct Binding *prev;
+
     };
     /*struct of the SymTable holding to its size, length, and array of buckets*/
     struct Table {
@@ -79,7 +81,6 @@ void SymTable_expand(SymTable_T oSymTable)
     while (i < bucket_cnts[bindex - 1])
     {
         struct Binding *cur = oSymTable->buckets[i];
-        struct Binding *prev = oSymTable->buckets[i];
         int prev_hval = 0;
         int hvalue = 0;
         struct Binding *hnext = NULL;
@@ -94,12 +95,12 @@ void SymTable_expand(SymTable_T oSymTable)
             {
                 if (cur == oSymTable->buckets[i])
                 {
+                    pnext->prev = NULL;
                     oSymTable->buckets[i] = pnext;
-                    prev = pnext;
                 }
                 else
                 {
-                    prev->next = pnext;
+                    cur->prev = pnext;
                 }
                 hnext = oSymTable->buckets[hvalue];
                 nmemo = (struct Binding*)realloc((void*)cur, sizeof(struct Binding));
@@ -109,13 +110,8 @@ void SymTable_expand(SymTable_T oSymTable)
                 }
                 nmemo->next = hnext;
                 oSymTable->buckets[hvalue] = nmemo;
-                cur = pnext;
             }
-            else
-            {
-                prev = cur;
-                cur = cur->next;
-            }
+            cur = pnext;
         }
         i++;
 
@@ -183,6 +179,8 @@ void SymTable_expand(SymTable_T oSymTable)
         newB->value = pvValue;
         newB->next = cur;
         oSymTable->buckets[hvalue] = newB;
+        newB->prev = NULL;
+        cur->prev = newB;
         oSymTable->bindings++;
         if (oSymTable->bindings == oSymTable->length)
         {
