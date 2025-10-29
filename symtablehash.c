@@ -22,7 +22,7 @@ static void assure(int iSuccessful, int iLineNum)
 /*keeps track of which expansion attempt program is on*/
 static size_t bindex = 0;
 /*keeps track of all the possible expanded to sizes*/
-static size_t bucket_cnts[] = {1, 2, 3, 10, 25, 16381, 32749, 65521};
+static size_t bucket_cnts[] = {509, 1021, 2039, 4093, 8191, 16381, 32749, 65521};
 
     /*the structure of a single*/
     struct Binding {
@@ -448,10 +448,13 @@ void SymTable_expand(SymTable_T oSymTable)
     struct Binding *cur = NULL;
     int hvalue = 0;
     hvalue = (int)SymTable_hash(pcKey, oSymTable->length);
+    /*
     printf("find bucket: ");
     printf("%d", hvalue);
     printf("\n");
+    */
     cur = oSymTable->buckets[hvalue];
+    /*
     printf("cur is ");
     if (cur == NULL)
     {
@@ -463,6 +466,7 @@ void SymTable_expand(SymTable_T oSymTable)
     }
     printf("%d", hvalue);
     printf("\n");
+    */
     while (cur != NULL)
     {
         if (!(strcmp(pcKey, cur->key)))
