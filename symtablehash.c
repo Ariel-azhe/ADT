@@ -180,6 +180,11 @@ void SymTable_expand(SymTable_T oSymTable)
         {
             prev_hval = (int)SymTable_hash(cur->key, bucket_cnts[bindex-1]);
             hvalue = (int)SymTable_hash(cur->key, oSymTable->length);
+            printf("previous hash: ");
+            printf("%d", prev_hval);
+            printf("new hash: ");
+            printf("%d", hvalue);
+            printf("\n");
             pnext = cur->next;
             if (prev_hval != hvalue)
             {
@@ -269,6 +274,7 @@ void SymTable_expand(SymTable_T oSymTable)
                     printf("\n");
                 }
             }
+            printf("\n");
         }
         i++;
 
