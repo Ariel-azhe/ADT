@@ -230,7 +230,7 @@ void SymTable_expand(SymTable_T oSymTable)
                 }
                 else
                 {
-                    printf("%s", hnext->key);
+                    printf("%s", oSymTable->buckets[hvalue]);
                 }
                 cur->next = hnext;
                 if (cur == NULL)
