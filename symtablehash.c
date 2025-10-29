@@ -156,13 +156,13 @@ a certain amount*/
 void SymTable_expand(SymTable_T oSymTable)
 {
     struct Binding **new_buckets;
+    size_t i = 0;
     if (bindex == ((int)sizeof(bucket_cnts)/(int)sizeof(int)) - 1)
     {
         return;
     }
     new_buckets = 
     (struct Binding**)realloc(oSymTable->buckets, bucket_cnts[++bindex]*sizeof(struct Binding));
-    size_t i = 0;
     /*printf("expanded\n");*/
     if (new_buckets == NULL)
     {
