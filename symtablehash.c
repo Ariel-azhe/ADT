@@ -4,7 +4,7 @@
 /*keeps track of which expansion attempt program is on*/
 static size_t bindex = 0;
 /*keeps track of all the possible expanded to sizes*/
-static size_t bucket_cnts[] = {509, 1021, 2039, 4093, 8191, 16381, 32749, 65521};
+static size_t bucket_cnts[] = {1, 2, 4, 4093, 8191, 16381, 32749, 65521};
 
     /*the structure of a single*/
     struct Binding {
