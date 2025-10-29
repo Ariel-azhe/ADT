@@ -3,6 +3,7 @@
 /*the number of key-value pairs in the list currently*/
 static size_t size;
 
+/*the structure of every node in the linked list*/
 struct Node {
     /*the pointer to the key string*/
         const char *key;
@@ -12,47 +13,11 @@ struct Node {
         struct Node *next;
     };
 
+    /*the struct holding the list implementation of sym table*/
     struct Table {
         /*the starting node of the list*/
         struct Node *first;
     };
-
-/*
-int main(void)
-{
-    SymTable_T oSymTable = SymTable_new();
-    char acJeter[] = "Jeter";
-   char acMantle[] = "Mantle";
-   char acGehrig[] = "Gehrig";
-   char acRuth[] = "Ruth";
-   char acShortstop[] = "Shortstop";
-   char acCenterField[] = "Center Field";
-   char acFirstBase[] = "First Base";
-   char acRightField[] = "Right Field";
-
-   char acBrown[] = "Brown";
-   
-   char *pcValue;
-   int iSuccessful;
-   int iFound;
-   size_t uLength;
-
-   
-   iSuccessful = SymTable_put(oSymTable, acJeter, acShortstop);
-   
-
-   
-   iSuccessful = SymTable_put(oSymTable, acMantle, acCenterField);
-
-
-
-   
-
-   iFound = SymTable_contains(oSymTable, "Maris");
-
-   return iFound;
-}
-*/
 
 SymTable_T SymTable_new(void)
 {
@@ -89,6 +54,7 @@ SymTable_T SymTable_new(void)
      {
         assert(oSymTable != NULL);
         assert(pcKey != NULL);
+        assert(pvValue != NULL);
         if (SymTable_contains(oSymTable, pcKey))
         {
             return 0;
@@ -118,6 +84,7 @@ SymTable_T SymTable_new(void)
         struct Node *cur = oSymTable->first;
         assert(oSymTable != NULL);
         assert(pcKey != NULL);
+        assert(pvValue != NULL);
         while (cur != NULL)
         {
             if (!(strcmp(pcKey, cur->key)))
@@ -205,6 +172,7 @@ SymTable_T SymTable_new(void)
      {
         struct Node *cur = oSymTable->first;
         assert(oSymTable != NULL);
+        assert(pvExtra != NULL);
         while (cur != NULL)
         {
             (*pfApply)(cur->key, (void*)cur->value, (void*)pvExtra);
