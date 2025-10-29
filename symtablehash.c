@@ -60,11 +60,15 @@ static size_t SymTable_hash(const char *pcKey, size_t uBucketCount)
 a certain amount*/
 void SymTable_expand(SymTable_T oSymTable)
 {
-    struct Binding **new_bucket = 
-    (struct Binding**)realloc(*(oSymTable->buckets), bucket_cnts[++bindex]*sizeof(struct Binding*));
+    struct Binding ** new_buckets = 
+    (struct Binding**)realloc(oSymTable->buckets, bucket_cnts[++bindex]*sizeof(struct Binding));
     size_t i = 0;
+    if (new_buckets == NULL)
+    {
+        return;
+    }
     oSymTable->length = bucket_cnts[bindex];
-    oSymTable->buckets = new_bucket;
+    oSymTable->buckets = new_buckets;
     i = bucket_cnts[bindex-1];
     while (i < oSymTable->length)
     {
@@ -86,8 +90,6 @@ void SymTable_expand(SymTable_T oSymTable)
             prev_hval = (int)SymTable_hash(cur->key, bucket_cnts[bindex-1]);
             hvalue = (int)SymTable_hash(cur->key, oSymTable->length);
             pnext = cur->next;
-            prev = cur;
-            cur = pnext;
             if (prev_hval != hvalue)
             {
                 if (cur == oSymTable->buckets[i])
@@ -112,7 +114,7 @@ void SymTable_expand(SymTable_T oSymTable)
             else
             {
                 prev = cur;
-                cur = pnext;
+                cur = cur->next;
             }
         }
         i++;
