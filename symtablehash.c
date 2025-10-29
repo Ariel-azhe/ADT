@@ -1,9 +1,9 @@
 #include "symtable.h"
+/*
 #ifndef S_SPLINT_S
 #include <sys/resource.h>
 #endif
 
-/*--------------------------------------------------------------------*/
 
 #define ASSURE(i) assure(i, __LINE__)
 
@@ -15,6 +15,7 @@ static void assure(int iSuccessful, int iLineNum)
       fflush(stdout);
    }
 }
+   */
 
 /*keeps track of which expansion attempt program is on*/
 static size_t bindex = 0;
@@ -40,6 +41,7 @@ static size_t bucket_cnts[] = {1, 2, 3, 10, 8191, 16381, 32749, 65521};
     size_t length;
     };
 
+    /*
     int main(void)
     {
         SymTable_T oSymTableSmall;
@@ -56,7 +58,7 @@ static size_t bucket_cnts[] = {1, 2, 3, 10, 8191, 16381, 32749, 65521};
         SymTable_free(oSymTableSmall);
         return 0;
     }
-
+*/
 /*creates new empty symbol table or returns NULL
     if insufficient memory*/
     SymTable_T SymTable_new(void)
