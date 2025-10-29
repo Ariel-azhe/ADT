@@ -200,6 +200,10 @@ void SymTable_expand(SymTable_T oSymTable)
                 {
                     printf("true");
                 }
+                else
+                {
+                    printf("false");
+                }
 
             }
             else
