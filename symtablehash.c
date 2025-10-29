@@ -60,10 +60,11 @@ static size_t SymTable_hash(const char *pcKey, size_t uBucketCount)
 a certain amount*/
 void SymTable_expand(SymTable_T oSymTable)
 {
-    oSymTable->buckets = 
+    struct Binding **new_bucket = 
     (struct Binding**)realloc(*(oSymTable->buckets), bucket_cnts[++bindex]*sizeof(struct Binding*));
     size_t i = 0;
     oSymTable->length = bucket_cnts[bindex];
+    oSymTable->buckets = new_bucket;
     i = bucket_cnts[bindex-1];
     while (i < oSymTable->length)
     {
