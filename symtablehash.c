@@ -30,6 +30,10 @@ size_t bucket_cnts[] = {509, 1021, 2039, 4093, 8191, 16381, 32749, 65521};
     SymTable_T SymTable_new(void)
     {
         SymTable_T sym = (struct Table*)calloc(1, sizeof(struct Table));
+        if (sym == NULL)
+        {
+            return NULL;
+        }
         sym->buckets = (struct Binding **)calloc(bucket_cnts[bindex], sizeof(struct Binding));
         sym->bindings = 0;
         sym->length = bucket_cnts[bindex];
@@ -82,8 +86,8 @@ void SymTable_expand(SymTable_T oSymTable)
         struct Binding *nmemo = NULL;
         while (cur != NULL && i < oSymTable->bindings)
         {
-            prev_hval = SymTable_hash(cur->key, bucket_cnts[bindex-1]);
-            hvalue = SymTable_hash(cur->key, oSymTable->length);
+            prev_hval = SymTable_hash(cur->key, bucket_cnts[(int)bindex-1]);
+            hvalue = (int)SymTable_hash(cur->key, oSymTable->length);
             if (prev_hval != hvalue)
             {
                 pnext = cur->next;
@@ -160,7 +164,7 @@ void SymTable_expand(SymTable_T oSymTable)
         struct Binding *cur = NULL;
         struct Binding *newB;
         int hvalue = 0;
-        hvalue = SymTable_hash(pcKey, bucket_cnts[bindex]);
+        hvalue = (int)SymTable_hash(pcKey, bucket_cnts[bindex]);
         if (SymTable_contains(oSymTable, pcKey))
         {
             return 0;
@@ -191,7 +195,7 @@ void SymTable_expand(SymTable_T oSymTable)
         void *rvalue = NULL;
         struct Binding *cur = NULL;
         int hvalue = 0;
-        hvalue = SymTable_hash(pcKey, bucket_cnts[bindex]);
+        hvalue = (int)SymTable_hash(pcKey, bucket_cnts[bindex]);
         cur = oSymTable->buckets[hvalue];
         while (cur != NULL)
         {
@@ -211,7 +215,7 @@ void SymTable_expand(SymTable_T oSymTable)
   {
     struct Binding *cur = NULL;
     int hvalue = 0;
-    hvalue = SymTable_hash(pcKey, bucket_cnts[bindex]);
+    hvalue = (int)SymTable_hash(pcKey, bucket_cnts[bindex]);
     cur = oSymTable->buckets[hvalue];
     while (cur != NULL)
     {
@@ -230,7 +234,7 @@ void SymTable_expand(SymTable_T oSymTable)
   {
     struct Binding *cur = NULL;
     int hvalue = 0;
-    hvalue = SymTable_hash(pcKey, bucket_cnts[bindex]);
+    hvalue = (int)SymTable_hash(pcKey, bucket_cnts[bindex]);
     cur = oSymTable->buckets[hvalue];
     while (cur != NULL)
     {
@@ -253,7 +257,7 @@ void SymTable_expand(SymTable_T oSymTable)
     struct Binding *bnext = NULL;
     void *pvValue = NULL;
     int hvalue = 0;
-    hvalue = SymTable_hash(pcKey, bucket_cnts[bindex]);
+    hvalue = (int)SymTable_hash(pcKey, bucket_cnts[bindex]);
     cur = oSymTable->buckets[hvalue];
     while (cur != NULL)
     {
