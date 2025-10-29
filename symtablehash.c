@@ -52,6 +52,7 @@ static size_t SymTable_hash(const char *pcKey, size_t uBucketCount)
   {
     size_t i = 0;
     size_t removed = 0;
+    assert(oSymTable != NULL);
     while ((i < oSymTable->length) && (removed < oSymTable->bindings))
     {
         struct Binding *cur = oSymTable->buckets[i];
@@ -73,6 +74,7 @@ static size_t SymTable_hash(const char *pcKey, size_t uBucketCount)
   /*returns the number of bindings in oSymTable*/
   size_t SymTable_getLength(SymTable_T oSymTable)
   {
+    assert(oSymTable != NULL);
     return oSymTable->bindings;
   }
 
@@ -86,6 +88,8 @@ static size_t SymTable_hash(const char *pcKey, size_t uBucketCount)
         struct Binding *newB;
         int hvalue = 0;
         hvalue = (int)SymTable_hash(pcKey, bucket_cnts[bindex]);
+        assert(oSymTable != NULL);
+        assert(pcKey != NULL);
         if (SymTable_contains(oSymTable, pcKey))
         {
             return 0;
@@ -122,6 +126,8 @@ static size_t SymTable_hash(const char *pcKey, size_t uBucketCount)
         int hvalue = 0;
         hvalue = (int)SymTable_hash(pcKey, bucket_cnts[bindex]);
         cur = oSymTable->buckets[hvalue];
+        assert(oSymTable != NULL);
+        assert(pcKey != NULL);
         while (cur != NULL)
         {
             if (!(strcmp(pcKey, cur->key)))
@@ -142,6 +148,8 @@ static size_t SymTable_hash(const char *pcKey, size_t uBucketCount)
     int hvalue = 0;
     hvalue = (int)SymTable_hash(pcKey, bucket_cnts[bindex]);
     cur = oSymTable->buckets[hvalue];
+    assert(oSymTable != NULL);
+    assert(pcKey != NULL);
     while (cur != NULL)
     {
         if (!(strcmp(pcKey, cur->key)))
@@ -161,6 +169,8 @@ static size_t SymTable_hash(const char *pcKey, size_t uBucketCount)
     int hvalue = 0;
     hvalue = (int)SymTable_hash(pcKey, bucket_cnts[bindex]);
     cur = oSymTable->buckets[hvalue];
+    assert(oSymTable != NULL);
+    assert(pcKey != NULL);
     while (cur != NULL)
     {
         if (!(strcmp(pcKey, cur->key)))
@@ -185,6 +195,8 @@ static size_t SymTable_hash(const char *pcKey, size_t uBucketCount)
     hvalue = (int)SymTable_hash(pcKey, bucket_cnts[bindex]);
     cur = oSymTable->buckets[hvalue];
     prev = oSymTable->buckets[hvalue];
+    assert(oSymTable != NULL);
+    assert(pcKey != NULL);
     while (cur != NULL)
     {
         if (!(strcmp(pcKey, cur->key)))
@@ -221,6 +233,7 @@ static size_t SymTable_hash(const char *pcKey, size_t uBucketCount)
      const void *pvExtra)
      {
         size_t i = 0;
+        assert(oSymTable != NULL);
         while (i < oSymTable->length)
         {
             struct Binding *cur = oSymTable->buckets[i];
