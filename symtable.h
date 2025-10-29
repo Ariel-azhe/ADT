@@ -52,9 +52,7 @@
   void SymTable_map(SymTable_T oSymTable,
      void (*pfApply)(const char *pcKey, void *pvValue, void *pvExtra),
      const void *pvExtra);
-/*expands the hash table bucket number when bindings exceed
-a certain amount; re-hashes keys*/
-void SymTable_expand(SymTable_T oSymTable);
+
 
 
     
