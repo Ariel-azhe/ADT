@@ -5,6 +5,7 @@ static size_t size;
 
 /*the structure of every node in the linked list*/
 struct Node {
+    
         /*the pointer to the key string*/
         const char *key;
 
