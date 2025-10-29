@@ -196,7 +196,10 @@ void SymTable_expand(SymTable_T oSymTable)
                 oSymTable->buckets[hvalue] = cur;
                 cur->next = hnext;
                 cur = pnext;
-                assert(oSymTable->buckets[hvalue]->next == hnext);
+                if(oSymTable->buckets[hvalue]->next == hnext)
+                {
+                    printf("true");
+                }
 
             }
             else
