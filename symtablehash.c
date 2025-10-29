@@ -1,24 +1,5 @@
 #include "symtable.h"
 
-/*
-#ifndef S_SPLINT_S
-#include <sys/resource.h>
-#endif
-
-
-#define ASSURE(i) assure(i, __LINE__)
-
-static void assure(int iSuccessful, int iLineNum)
-{
-   if (! iSuccessful)
-   {
-      printf("Test at line %d failed.\n", iLineNum);
-      fflush(stdout);
-   }
-}
-   */
-
-
 /*keeps track of which expansion attempt program is on*/
 static size_t bindex = 0;
 /*keeps track of all the possible expanded to sizes*/
@@ -43,63 +24,6 @@ static size_t bucket_cnts[] = {1, 2, 10, 25, 50, 16381, 32749, 65521};
     size_t length;
     };
 
-
-    /*
-    int main(void)
-    {
-        SymTable_T oSymTableSmall;
-        int iSuccessful;
-        char *cvalue;
-        oSymTableSmall = SymTable_new();
-        ASSURE(oSymTableSmall != NULL);
-        iSuccessful = SymTable_put(oSymTableSmall, "xxx", "xxx");
-        ASSURE(iSuccessful);
-        iSuccessful = SymTable_put(oSymTableSmall, "yyy", "yyy");
-        ASSURE(iSuccessful);
-        iSuccessful = SymTable_put(oSymTableSmall, "a", "a");
-        ASSURE(iSuccessful);
-        iSuccessful = SymTable_put(oSymTableSmall, "b", "b");
-        ASSURE(iSuccessful);
-        iSuccessful = SymTable_put(oSymTableSmall, "c", "c");
-        ASSURE(iSuccessful);
-        iSuccessful = SymTable_put(oSymTableSmall, "d", "d");
-        ASSURE(iSuccessful);
-        iSuccessful = SymTable_put(oSymTableSmall, "e", "e");
-        ASSURE(iSuccessful);
-        iSuccessful = SymTable_put(oSymTableSmall, "f", "f");
-        ASSURE(iSuccessful);
-        iSuccessful = SymTable_put(oSymTableSmall, "g", "g");
-        ASSURE(iSuccessful);
-        iSuccessful = SymTable_put(oSymTableSmall, "h", "h");
-        ASSURE(iSuccessful);
-
-        cvalue = (char*)SymTable_get(oSymTableSmall, "a");
-        ASSURE(cvalue != NULL);
-        cvalue = (char*)SymTable_get(oSymTableSmall, "b");
-        ASSURE(cvalue != NULL);
-        cvalue = (char*)SymTable_get(oSymTableSmall, "c");
-        ASSURE(cvalue != NULL);
-        cvalue = (char*)SymTable_get(oSymTableSmall, "d");
-        ASSURE(cvalue != NULL);
-        cvalue = (char*)SymTable_get(oSymTableSmall, "e");
-        ASSURE(cvalue != NULL);
-        cvalue = (char*)SymTable_get(oSymTableSmall, "f");
-        ASSURE(cvalue != NULL);
-        cvalue = (char*)SymTable_get(oSymTableSmall, "g");
-        ASSURE(cvalue != NULL);
-        cvalue = (char*)SymTable_get(oSymTableSmall, "h");
-        ASSURE(cvalue != NULL);
-        cvalue = (char*)SymTable_get(oSymTableSmall, "xxx");
-        ASSURE(cvalue != NULL);
-        cvalue = (char*)SymTable_get(oSymTableSmall, "yyy");
-        ASSURE(cvalue != NULL);
-
-        printf("start free");
-        SymTable_free(oSymTableSmall);
-        return 0;
-    }
-        */
-
 /*creates new empty symbol table or returns NULL
     if insufficient memory*/
     SymTable_T SymTable_new(void)
@@ -116,27 +40,6 @@ static size_t bucket_cnts[] = {1, 2, 10, 25, 50, 16381, 32749, 65521};
     }
 /* Return a hash code for pcKey that is between 0 and uBucketCount-1,
    inclusive. */
-
-   void SymTable_print(SymTable_T oSymTable)
-   {
-    size_t i = 0;
-    size_t removed = 0;
-    while ((i < oSymTable->length) && (removed < oSymTable->bindings))
-    {
-        struct Binding *cur = oSymTable->buckets[i];
-        struct Binding *cnext = NULL;
-        printf("%d",(int)i);
-        while (cur != NULL)
-        {
-            printf("%s", cur->key);
-            cur = cur->next;
-            removed++;
-        }
-        i++;
-        printf("\n");
-    }
-    printf("\n");
-   }
 static size_t SymTable_hash(const char *pcKey, size_t uBucketCount)
 {
    const size_t HASH_MULTIPLIER = 65599;
@@ -189,143 +92,15 @@ void SymTable_expand(SymTable_T oSymTable)
         {
             prev_hval = (int)SymTable_hash(cur->key, bucket_cnts[bindex-1]);
             hvalue = (int)SymTable_hash(cur->key, oSymTable->length);
-            /*
-            printf("previous hash: ");
-            printf("%d", prev_hval);
-            printf("new hash: ");
-            printf("%d", hvalue);
-            printf("\n");*/
             pnext = cur->next;
             if ((int)i != hvalue)
             {
-                /*
-                printf("reallocated ");
-                printf("%s", cur->key);
-                printf("\n");
-                printf("prev is ");
-                if (prev == NULL)
-                {
-                    printf("NULL\n");
-                }
-                else
-                {
-                    printf("%s", prev->key);
-                    printf("\n");
-                }
-                */
-
                 hnext = oSymTable->buckets[hvalue];
-                /*
-                printf("new bucket starts with: ");
-                if (hnext == NULL)
-                {
-                    printf("NULL\n");
-                }
-                else
-                {
-                    printf("%s", hnext->key);
-                    printf("\n");
-                }
-                    */
                 oSymTable->buckets[hvalue] = cur;
-                /*
-                printf("new bucket is filled with: ");
-                if (hnext == NULL)
-                {
-                    printf("NULL\n");
-                }
-                else
-                {
-                    printf("%s", cur->key);
-                    printf("\n");
-                }
-                    */
                 cur->next = hnext;
-                /*
-                if (cur == NULL)
-                {
-                    printf("cur is already null");
-                    printf("    ");
-                    printf("\n");
-
-
-                }
-                else if (cur->next == NULL)
-                {
-                    printf("next is null");
-                    printf("    ");
-                    printf("\n");
-
-                }
-                else
-                {
-                    printf("next is ");
-                    printf("%s", cur->next->key);
-                    printf("    ");
-                    printf("\n");
-
-                }
-                printf("actally going to: ");
-                if (pnext == NULL)
-                {
-                    printf("NULL\n");
-                }
-                else
-                {
-                    printf("%s", pnext->key);
-                }
-                    */
-                if (cur == oSymTable->buckets[i])
-                {
-                    oSymTable->buckets[i] = pnext;
-                    prev = pnext;
-                }
-                else
-                {
-                    prev->next = pnext;
-                }
-                cur = pnext;
-            }
-            else
-            {
-                /*
-                printf("not changed ");
-                printf("%s", cur->key);
-                printf("\n");
-                if (cur == NULL)
-                {
-                    printf("cur is already null");
-                    printf("    ");
-
-                }
-                else if (cur->next == NULL)
-                {
-                    printf("next is null");
-                    printf("    ");
-
-                }
-                else
-                {
-                    printf("next is ");
-                    printf("%s", cur->next->key);
-                    printf("    ");
-                }*/
                 prev = cur;
                 cur = cur->next;
-                /*
-                printf("prev is ");
-                if (prev == NULL)
-                {
-                    printf("NULL\n");
-                }
-                else
-                {
-                    printf("%s", prev->key);
-                    printf("\n");
-                }*/
             }
-            /*
-            printf("\n");*/
         }
         i++;
 
@@ -398,9 +173,6 @@ void SymTable_expand(SymTable_T oSymTable)
         {
             SymTable_expand(oSymTable);
         }
-        /*
-        SymTable_print(oSymTable);
-        */
         return 1;
      }
     
@@ -453,25 +225,7 @@ void SymTable_expand(SymTable_T oSymTable)
     struct Binding *cur = NULL;
     int hvalue = 0;
     hvalue = (int)SymTable_hash(pcKey, oSymTable->length);
-    /*
-    printf("find bucket: ");
-    printf("%d", hvalue);
-    printf("\n");
-    */
     cur = oSymTable->buckets[hvalue];
-    /*
-    printf("cur is ");
-    if (cur == NULL)
-    {
-        printf("NULL");
-    }
-    else
-    {
-        printf("%s", cur->key);
-    }
-    printf("%d", hvalue);
-    printf("\n");
-    */
     while (cur != NULL)
     {
         if (!(strcmp(pcKey, cur->key)))

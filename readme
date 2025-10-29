@@ -12,6 +12,15 @@ in the "Policies" web page (also available on armlab in the file
 ~cos217/AuthorizedSourcesList ) to this section of the readme file,
 and edit it as appropriate.
 
+The course's lectures.
+
+The course's precepts.
+
+The course's website.
+
+Documents that are referenced directly by the course's website. Such documents include the course's lecture slides and precept handouts.
+
+The course's current staff members outside of class time through office hours.
 
 
 ------------------------------------------------------------------------
@@ -107,7 +116,7 @@ The linked list implementation with:
 -- 500 bindings consumed 0 seconds.
 -- 5000 bindings consumed 0.118968 seconds.
 -- 50000 bindings consumed 19.442574 seconds.
--- 500000 bindings consumed ________ seconds.
+-- 500000 bindings consumed NA (aborted) seconds.
 
 The non-expanding hash table implementation with:
 -- 50 bindings consumed 0 seconds.
@@ -116,10 +125,9 @@ The non-expanding hash table implementation with:
 -- 50000 bindings consumed 0.168253 seconds.
 -- 500000 bindings consumed 37.008152 seconds.
 
-No expanding implementation.
 The expanding hash table implementation with:
 -- 50 bindings consumed 0 seconds.
 -- 500 bindings consumed 0 seconds.
 -- 5000 bindings consumed 0 seconds.
 -- 50000 bindings consumed 0.024311 seconds.
--- 500000 bindings consumed ________ seconds.
+-- 500000 bindings consumed 0.415778 seconds.
