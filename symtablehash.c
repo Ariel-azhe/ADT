@@ -95,6 +95,7 @@ static size_t bucket_cnts[] = {1, 2, 3, 10, 25, 16381, 32749, 65521};
         i++;
         printf("\n");
     }
+    printf("\n");
    }
 static size_t SymTable_hash(const char *pcKey, size_t uBucketCount)
 {
