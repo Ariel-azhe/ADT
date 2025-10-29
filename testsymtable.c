@@ -902,9 +902,9 @@ static void testLargeTable(int iBindingCount)
    /* Make sure oSymTableSmall hasn't been corrupted by expansion
       of oSymTable. */
    pcValue = (char*)SymTable_get(oSymTableSmall, "xxx");
-   ASSURE((pcValue != NULL) && (strcmp(pcValue, "xxx") == 0));
+   ASSURE((pcValue != NULL) && (strcmp((char*)pcValue, "xxx") == 0));
    pcValue = (char*)SymTable_get(oSymTableSmall, "yyy");
-   ASSURE((pcValue != NULL) && (strcmp(pcValue, "yyy") == 0));
+   ASSURE((pcValue != NULL) && (strcmp((char*)pcValue, "yyy") == 0));
 
    /* Free both SymTable objects. */
    SymTable_free(oSymTable);
