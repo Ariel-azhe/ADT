@@ -75,6 +75,27 @@ static size_t bucket_cnts[] = {509, 1021, 2039, 4093, 8191, 16381, 32749, 65521}
     }
 /* Return a hash code for pcKey that is between 0 and uBucketCount-1,
    inclusive. */
+
+   void SymTable_print(SymTable_T oSymTable)
+   {
+    size_t i = 0;
+    size_t removed = 0;
+    while ((i < oSymTable->length) && (removed < oSymTable->bindings))
+    {
+        struct Binding *cur = oSymTable->buckets[i];
+        struct Binding *cnext = NULL;
+        printf(i);
+        while (cur != NULL)
+        {
+            cnext=cur->next;
+            printf("%s", cur->key);
+            cur = cnext;
+            removed++;
+        }
+        i++;
+        printf("\n");
+    }
+   }
 static size_t SymTable_hash(const char *pcKey, size_t uBucketCount)
 {
    const size_t HASH_MULTIPLIER = 65599;
@@ -135,7 +156,7 @@ void SymTable_expand(SymTable_T oSymTable)
                     prev->next = pnext;
                 }
                 hnext = oSymTable->buckets[hvalue];
-                nmemo = (struct Binding*)calloc(1, sizeof(struct Binding));
+                nmemo = (struct Binding*)realloc(1, sizeof(struct Binding));
                 nmemo->key = (const char*)malloc(strlen(cur->key) + 1);
                 strcpy((char*)nmemo->key, cur->key);
                 nmemo->value = cur->value;
@@ -203,6 +224,7 @@ void SymTable_expand(SymTable_T oSymTable)
         struct Binding *newB;
         int hvalue = 0;
         hvalue = (int)SymTable_hash(pcKey, bucket_cnts[bindex]);
+        SymTable_print(oSymTable);
         if (SymTable_contains(oSymTable, pcKey))
         {
             return 0;
