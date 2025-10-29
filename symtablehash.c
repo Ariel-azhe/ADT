@@ -94,7 +94,7 @@ void SymTable_expand(SymTable_T oSymTable)
                 if (cur == oSymTable->buckets[i])
                 {
                     oSymTable->buckets[i] = cur->next;
-                    prev = oSymTable->buckets[i];
+                    prev = cur->next;
                 }
                 else
                 {
