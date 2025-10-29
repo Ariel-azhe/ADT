@@ -173,7 +173,6 @@ SymTable_T SymTable_new(void)
      {
         struct Node *cur = oSymTable->first;
         assert(oSymTable != NULL);
-        assert(pvExtra != NULL);
         assert(pfApply != NULL);
         while (cur != NULL)
         {
