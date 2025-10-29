@@ -57,7 +57,6 @@ SymTable_T SymTable_new(void)
      {
         assert(oSymTable != NULL);
         assert(pcKey != NULL);
-        assert(pvValue != NULL);
         if (SymTable_contains(oSymTable, pcKey))
         {
             return 0;
@@ -87,7 +86,6 @@ SymTable_T SymTable_new(void)
         struct Node *cur = oSymTable->first;
         assert(oSymTable != NULL);
         assert(pcKey != NULL);
-        assert(pvValue != NULL);
         while (cur != NULL)
         {
             if (!(strcmp(pcKey, cur->key)))
