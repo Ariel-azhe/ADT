@@ -220,6 +220,7 @@ void SymTable_expand(SymTable_T oSymTable)
                 else
                 {
                     printf("%s", hnext->key);
+                    printf("\n");
                 }
                 oSymTable->buckets[hvalue] = cur;
                 printf("new bucket is filled with: ");
