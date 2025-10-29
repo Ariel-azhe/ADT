@@ -222,6 +222,15 @@ void SymTable_expand(SymTable_T oSymTable)
                     printf("%s", hnext->key);
                 }
                 oSymTable->buckets[hvalue] = cur;
+                printf("new bucket is filled with: ");
+                if (hnext == NULL)
+                {
+                    printf("NULL\n");
+                }
+                else
+                {
+                    printf("%s", hnext->key);
+                }
                 cur->next = hnext;
                 if (cur == NULL)
                 {
