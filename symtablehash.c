@@ -1,7 +1,8 @@
 #include "symtable.h"
 
-size_t bindex = 0;
-size_t bucket_cnts[] = {509, 1021, 2039, 4093, 8191, 16381, 32749, 65521};
+static size_t bindex = 0;
+static size_t bucket_cnts[] = {509, 1021, 2039, 4093, 8191, 16381, 32749, 65521};
+
     struct Binding {
     const char *key;
     const void* value;
