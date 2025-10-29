@@ -14,17 +14,6 @@ size_t bucket_cnts[] = {509, 1021, 2039, 4093, 8191, 16381, 32749, 65521};
     };
 
 
-    static void assure(int iSuccessful, int iLineNum)
-{
-   if (! iSuccessful)
-   {
-      printf("Test at line %d failed.\n", iLineNum);
-      fflush(stdout);
-   }
-}
-
-
-
 /*creates new empty symbol table or returns NULL
     if insufficient memory*/
     SymTable_T SymTable_new(void)
@@ -86,7 +75,7 @@ void SymTable_expand(SymTable_T oSymTable)
         struct Binding *nmemo = NULL;
         while (cur != NULL && i < oSymTable->bindings)
         {
-            prev_hval = SymTable_hash(cur->key, bucket_cnts[(int)bindex-1]);
+            prev_hval = (int)SymTable_hash(cur->key, bucket_cnts[bindex-1]);
             hvalue = (int)SymTable_hash(cur->key, oSymTable->length);
             if (prev_hval != hvalue)
             {
@@ -171,6 +160,10 @@ void SymTable_expand(SymTable_T oSymTable)
         }
         cur = oSymTable->buckets[hvalue];
         newB = (struct Binding*)calloc(1, sizeof(struct Binding));
+        if (newB = NULL)
+        {
+            return 0;
+        }
         newB->key = (const char*)malloc(strlen(pcKey) + 1);
         strcpy((char*)newB->key, pcKey);
         newB->value = pvValue;
