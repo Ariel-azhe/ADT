@@ -187,6 +187,16 @@ void SymTable_expand(SymTable_T oSymTable)
                 printf("reallocated");
                 printf("%s", cur->key);
                 printf("\n");
+                printf("prev is ");
+                if (prev == NULL)
+                {
+                    printf("NULL\n");
+                }
+                else
+                {
+                    printf("%s", prev->key);
+                    printf("\n");
+                }
                 if (cur == oSymTable->buckets[i])
                 {
                     oSymTable->buckets[i] = pnext;
@@ -203,8 +213,21 @@ void SymTable_expand(SymTable_T oSymTable)
             }
             else
             {
+                printf("not changed ");
+                printf("%s", cur->key);
+                printf("\n");
                 prev = cur;
                 cur = cur->next;
+                printf("prev is ");
+                if (prev == NULL)
+                {
+                    printf("NULL\n");
+                }
+                else
+                {
+                    printf("%s", prev->key);
+                    printf("\n");
+                }
             }
         }
         i++;
