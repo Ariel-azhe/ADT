@@ -201,15 +201,7 @@ void SymTable_expand(SymTable_T oSymTable)
                     printf("%s", prev->key);
                     printf("\n");
                 }
-                if (cur == oSymTable->buckets[i])
-                {
-                    oSymTable->buckets[i] = pnext;
-                    prev = pnext;
-                }
-                else
-                {
-                    prev->next = pnext;
-                }
+            
 
                 hnext = oSymTable->buckets[hvalue];
                 printf("new bucket starts with: ");
@@ -265,6 +257,15 @@ void SymTable_expand(SymTable_T oSymTable)
                 else
                 {
                     printf("%s", pnext->key);
+                }
+                if (cur == oSymTable->buckets[i])
+                {
+                    oSymTable->buckets[i] = pnext;
+                    prev = pnext;
+                }
+                else
+                {
+                    prev->next = pnext;
                 }
                 cur = pnext;
             }
