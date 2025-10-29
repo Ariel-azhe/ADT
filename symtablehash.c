@@ -84,11 +84,10 @@ void SymTable_expand(SymTable_T oSymTable)
         while (cur != NULL)
         {
             prev_hval = (int)SymTable_hash(cur->key, bucket_cnts[bindex-1]);
-            hvalue = (int)SymTable_hash(cur->key, bucket_cnts[bindex-1]);
+            hvalue = (int)SymTable_hash(cur->key, oSymTable->length);
             pnext = cur->next;
             prev = cur;
             cur = pnext;
-            /*
             if (prev_hval != hvalue)
             {
                 if (cur == oSymTable->buckets[i])
@@ -115,7 +114,6 @@ void SymTable_expand(SymTable_T oSymTable)
                 prev = cur;
                 cur = pnext;
             }
-                */
         }
         i++;
 
