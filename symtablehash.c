@@ -210,6 +210,7 @@ void SymTable_expand(SymTable_T oSymTable)
                 {
                     prev->next = pnext;
                 }
+
                 if (cur == NULL)
                 {
                     printf("cur is already null");
@@ -234,6 +235,15 @@ void SymTable_expand(SymTable_T oSymTable)
 
                 }
                 hnext = oSymTable->buckets[hvalue];
+                printf("new bucket starts with: ");
+                if (hnext == NULL)
+                {
+                    printf("NULL\n");
+                }
+                else
+                {
+                    printf("%s", hnext->key);
+                }
                 oSymTable->buckets[hvalue] = cur;
                 cur->next = hnext;
                 cur = pnext;
