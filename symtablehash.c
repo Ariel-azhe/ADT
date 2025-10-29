@@ -148,6 +148,8 @@ void SymTable_expand(SymTable_T oSymTable)
         oSymTable->buckets[i] = NULL;
         i++;
     }
+    free(oSymTable);
+    oSymTable = NULL;
   }
 
   /*returns the number of bindings in oSymTable*/
