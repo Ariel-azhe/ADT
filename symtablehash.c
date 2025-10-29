@@ -139,7 +139,7 @@ void SymTable_expand(SymTable_T oSymTable)
                 nmemo->key = (const char*)malloc(strlen(cur->key) + 1);
                 strcpy((char*)nmemo->key, cur->key);
                 nmemo->value = cur->value;
-                free(cur->key);
+                free((void*)cur->key);
                 cur->key = NULL;
                 free(cur);
                 nmemo->next = hnext;
