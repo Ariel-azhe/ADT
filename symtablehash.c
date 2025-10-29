@@ -1,7 +1,7 @@
 #include "symtable.h"
 
 size_t bindex = 0;
-size_t bucket_cnts[] = {1, 2, 4, 10, 8191, 16381, 32749, 65521};
+size_t bucket_cnts[] = {1, 2, 7, 4093, 8191, 16381, 32749, 65521};
     struct Binding {
     const char *key;
     const void* value;
@@ -111,7 +111,7 @@ void SymTable_expand(SymTable_T oSymTable)
             }
             else
             {
-                prev = cur;
+                prev =cur;
             }
             cur = pnext; 
             i++;
