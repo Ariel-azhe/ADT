@@ -160,7 +160,7 @@ void SymTable_expand(SymTable_T oSymTable)
         }
         cur = oSymTable->buckets[hvalue];
         newB = (struct Binding*)calloc(1, sizeof(struct Binding));
-        if (newB = NULL)
+        if (newB == NULL)
         {
             return 0;
         }
