@@ -1,14 +1,19 @@
 #include "symtable.h"
 
+/*the number of key-value pairs in the list currently*/
 static size_t size;
 
 struct Node {
+    /*the pointer to the key string*/
         const char *key;
+        /*the pointer to the value with generic type*/
         const void *value;
+        /*the pointer to the next binding in the list*/
         struct Node *next;
     };
 
     struct Table {
+        /*the starting node of the list*/
         struct Node *first;
     };
 

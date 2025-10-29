@@ -1,16 +1,24 @@
 #include "symtable.h"
 
+/*keeps track of which expansion attempt program is on*/
 static size_t bindex = 0;
+/*keeps track of all the possible expanded to sizes*/
 static size_t bucket_cnts[] = {509, 1021, 2039, 4093, 8191, 16381, 32749, 65521};
 
     struct Binding {
+        /*the pointer to the key string*/
     const char *key;
+    /*the pointer to the value with generic type*/
     const void* value;
+    /*the pointer to the next binding in the bucket*/
     struct Binding *next;
     };
     struct Table {
+        /*the pointer to the array of buckets in the symtable*/
     struct Binding **buckets;
+    /*the amount of key-value bindings*/
     size_t bindings;
+    /*the physical length of the buckets (how many buckets)*/
     size_t length;
     };
 
