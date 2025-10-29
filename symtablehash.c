@@ -148,6 +148,8 @@ void SymTable_expand(SymTable_T oSymTable)
         oSymTable->buckets[i] = NULL;
         i++;
     }
+    free(oSymTable->buckets);
+    oSymTable->buckets = NULL;
     free(oSymTable);
     oSymTable = NULL;
   }

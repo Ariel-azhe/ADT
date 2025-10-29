@@ -5,7 +5,7 @@ static size_t size;
 
 /*the structure of every node in the linked list*/
 struct Node {
-    
+
         /*the pointer to the key string*/
         const char *key;
 
@@ -45,6 +45,8 @@ SymTable_T SymTable_new(void)
         oSymTable->first = fst_next;
         size--;
     }
+    free(oSymTable);
+    oSymTable = NULL;
   }
 
   size_t SymTable_getLength(SymTable_T oSymTable)
