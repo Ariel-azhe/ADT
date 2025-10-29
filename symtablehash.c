@@ -41,7 +41,7 @@ static size_t bucket_cnts[] = {1, 2, 3, 10, 25, 16381, 32749, 65521};
     size_t length;
     };
 
-    /*
+
     int main(void)
     {
         SymTable_T oSymTableSmall;
@@ -52,13 +52,27 @@ static size_t bucket_cnts[] = {1, 2, 3, 10, 25, 16381, 32749, 65521};
         ASSURE(iSuccessful);
         iSuccessful = SymTable_put(oSymTableSmall, "yyy", "yyy");
         ASSURE(iSuccessful);
-        iSuccessful = SymTable_put(oSymTableSmall, "xx", "xx");
+        iSuccessful = SymTable_put(oSymTableSmall, "a", "a");
+        ASSURE(iSuccessful);
+        iSuccessful = SymTable_put(oSymTableSmall, "b", "b");
+        ASSURE(iSuccessful);
+        iSuccessful = SymTable_put(oSymTableSmall, "c", "c");
+        ASSURE(iSuccessful);
+        iSuccessful = SymTable_put(oSymTableSmall, "d", "d");
+        ASSURE(iSuccessful);
+        iSuccessful = SymTable_put(oSymTableSmall, "e", "e");
+        ASSURE(iSuccessful);
+        iSuccessful = SymTable_put(oSymTableSmall, "f", "f");
+        ASSURE(iSuccessful);
+        iSuccessful = SymTable_put(oSymTableSmall, "g", "g");
+        ASSURE(iSuccessful);
+        iSuccessful = SymTable_put(oSymTableSmall, "h", "h");
         ASSURE(iSuccessful);
 
         SymTable_free(oSymTableSmall);
         return 0;
     }
-*/
+
 /*creates new empty symbol table or returns NULL
     if insufficient memory*/
     SymTable_T SymTable_new(void)
