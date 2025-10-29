@@ -1,5 +1,5 @@
 #include "symtable.h"
-/*
+
 #ifndef S_SPLINT_S
 #include <sys/resource.h>
 #endif
@@ -15,7 +15,7 @@ static void assure(int iSuccessful, int iLineNum)
       fflush(stdout);
    }
 }
-   */
+
 
 /*keeps track of which expansion attempt program is on*/
 static size_t bindex = 0;
