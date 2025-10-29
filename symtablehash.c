@@ -91,16 +91,20 @@ void SymTable_expand(SymTable_T oSymTable)
             hvalue = (int)SymTable_hash(cur->key, oSymTable->length);
             if (prev_hval != hvalue)
             {
+                pnext = cur->next;
                 if (cur == oSymTable->buckets[i])
                 {
-                    oSymTable->buckets[i] = cur->next;
-                    prev = cur->next;
+                    oSymTable->buckets[i] = pnext;
+                    prev = pnext;
+                }
+                else if (prev->next != NULL)
+                {
+                    prev->next = pnext;
                 }
                 else
                 {
-                    prev->next = cur->next;
+                    break;
                 }
-                pnext = cur->next;
                 hnext = oSymTable->buckets[hvalue];
                 nmemo = (struct Binding*)realloc((void*)cur, sizeof(struct Binding));
                 if (nmemo == NULL)
