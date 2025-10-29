@@ -195,6 +195,7 @@ void SymTable_expand(SymTable_T oSymTable)
                 hnext = oSymTable->buckets[hvalue];
                 oSymTable->buckets[hvalue] = cur;
                 cur->next = hnext;
+                assert(oSymTable->buckets[hvalue]->next == hnext);
                 cur = pnext;
             }
             else
@@ -347,7 +348,7 @@ void SymTable_expand(SymTable_T oSymTable)
         {
             return (void*)cur->value;
         }
-        cur=cur->next;
+        cur=cur->next; 
     }
     return NULL;
   }
