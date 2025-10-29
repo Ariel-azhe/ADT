@@ -1,3 +1,5 @@
+/*header file holding all declarations for 
+implementing a symtable (hash and not hash linked lists)*/
 
 #ifndef SYMTABLE_H
     #define SYMTABLE_H

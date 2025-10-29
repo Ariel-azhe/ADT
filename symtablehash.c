@@ -62,7 +62,6 @@ static void SymTable_expand(SymTable_T oSymTable)
 {
     struct Binding **new_buckets;
     size_t i = 0;
-    int prev_hval;
     int hvalue;
     assert(oSymTable != NULL);
     /*checks whether reached end of possible bucket sizes*/
@@ -89,7 +88,6 @@ static void SymTable_expand(SymTable_T oSymTable)
         struct Binding *pnext = NULL;
         while (cur != NULL)
         {
-            prev_hval = (int)SymTable_hash(cur->key, bucket_cnts[bindex-1]);
             hvalue = (int)SymTable_hash(cur->key, oSymTable->length);
             pnext = cur->next;
             if ((int)i != hvalue)
