@@ -91,6 +91,7 @@ static size_t bucket_cnts[] = {1, 2, 3, 10, 25, 16381, 32749, 65521};
         cvalue = (char*)SymTable_get(oSymTableSmall, "yyy");
         ASSURE(cvalue != NULL);
 
+        printf("start free");
         SymTable_free(oSymTableSmall);
         return 0;
     }
@@ -342,7 +343,6 @@ void SymTable_expand(SymTable_T oSymTable)
     printf("\n");
     while (cur != NULL)
     {
-        printf("cur is not null.");
         if (!(strcmp(pcKey, cur->key)))
         {
             return (void*)cur->value;
