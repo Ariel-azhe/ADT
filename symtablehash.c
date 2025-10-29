@@ -62,6 +62,8 @@ void SymTable_expand(SymTable_T oSymTable)
 {
     struct Binding **new_buckets;
     size_t i = 0;
+    int prev_hval;
+    int hvalue;
     assert(oSymTable != NULL);
     /*checks whether reached end of possible bucket sizes*/
     if (bindex == (sizeof(bucket_cnts)/sizeof(size_t)) - 1)
@@ -78,8 +80,6 @@ void SymTable_expand(SymTable_T oSymTable)
     /*updates symtable length and bucket array (expanded)*/
     oSymTable->length = bucket_cnts[bindex];
     oSymTable->buckets = new_buckets;
-    int prev_hval = 0;
-    int hvalue = 0;
     /*re-hashes every existing key-value pair in the symtable*/
     while (i < bucket_cnts[bindex - 1])
     {
