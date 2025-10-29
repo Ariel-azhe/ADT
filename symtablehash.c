@@ -5,6 +5,7 @@ static size_t bindex = 0;
 /*keeps track of all the possible expanded to sizes*/
 static size_t bucket_cnts[] = {509, 1021, 2039, 4093, 8191, 16381, 32749, 65521};
 
+    /*the structure of a single key-value pair in the SymTable*/
     struct Binding {
         /*the pointer to the key string*/
     const char *key;
@@ -13,6 +14,7 @@ static size_t bucket_cnts[] = {509, 1021, 2039, 4093, 8191, 16381, 32749, 65521}
     /*the pointer to the next binding in the bucket*/
     struct Binding *next;
     };
+    /*struct of the SymTable holding to its size, length, and array of buckets*/
     struct Table {
         /*the pointer to the array of buckets in the symtable*/
     struct Binding **buckets;
@@ -242,6 +244,7 @@ static size_t SymTable_hash(const char *pcKey, size_t uBucketCount)
      {
         size_t i = 0;
         assert(oSymTable != NULL);
+        assert(pfApply != NULL);
         while (i < oSymTable->length)
         {
             struct Binding *cur = oSymTable->buckets[i];
