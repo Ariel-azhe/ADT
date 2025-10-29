@@ -121,7 +121,7 @@ The linked list implementation with:
 -- 500 bindings consumed 0 seconds.
 -- 5000 bindings consumed 0.118968 seconds.
 -- 50000 bindings consumed 19.442574 seconds.
--- 500000 bindings consumed NA (aborted) seconds.
+-- 500000 bindings consumed NA (Killed) seconds.
 
 The non-expanding hash table implementation with:
 -- 50 bindings consumed 0 seconds.

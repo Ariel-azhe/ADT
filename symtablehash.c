@@ -79,6 +79,13 @@ static void SymTable_expand(SymTable_T oSymTable)
     /*updates symtable length and bucket array (expanded)*/
     oSymTable->length = bucket_cnts[bindex];
     oSymTable->buckets = new_buckets;
+    i = bucket_cnts[bindex - 1];
+    while (i < oSymTable->length)
+    {
+        oSymTable->buckets[i] = NULL;
+        i++;
+    }
+    i = 0;
     /*re-hashes every existing key-value pair in the symtable*/
     while (i < bucket_cnts[bindex - 1])
     {
