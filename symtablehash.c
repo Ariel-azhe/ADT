@@ -196,7 +196,7 @@ void SymTable_expand(SymTable_T oSymTable)
                 oSymTable->buckets[hvalue] = cur;
                 cur->next = hnext;
                 cur = pnext;
-                if (hnext == NULL && oSymTable->buckets[hvalue]->nex == NULL)
+                if (hnext == NULL && oSymTable->buckets[hvalue]->next == NULL)
                 {
                     printf("true");
                 }
