@@ -336,7 +336,7 @@ void SymTable_expand(SymTable_T oSymTable)
     {
         printf("%s", cur->key);
     }
-    printf("%d", "in " + hvalue);
+    printf("%d", hvalue);
     printf("\n");
     while (cur != NULL)
     {
