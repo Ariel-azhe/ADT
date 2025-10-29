@@ -63,25 +63,23 @@ void SymTable_expand(SymTable_T oSymTable)
     struct Binding **new_buckets;
     size_t i = 0;
     assert(oSymTable != NULL);
+    /*checks whether reached end of possible bucket sizes*/
     if (bindex == (sizeof(bucket_cnts)/sizeof(size_t)) - 1)
     {
         return;
     }
     new_buckets = 
     (struct Binding**)realloc(oSymTable->buckets, bucket_cnts[++bindex]*sizeof(struct Binding));
+    /*checks whether enough memory for reallocation is available*/
     if (new_buckets == NULL)
     {
         return;
     }
+    /*updates symtable length and bucket array (expanded)*/
     oSymTable->length = bucket_cnts[bindex];
     oSymTable->buckets = new_buckets;
-    i = bucket_cnts[bindex-1];
-    while (i < oSymTable->length)
-    {
-        oSymTable->buckets[i] = NULL;
-        i++;
-    }
     i = 0;
+    /*re-hashes every existing key-value pair in the symtable*/
     while (i < bucket_cnts[bindex - 1])
     {
         struct Binding *cur = oSymTable->buckets[i];
