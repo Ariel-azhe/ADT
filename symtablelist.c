@@ -92,6 +92,10 @@ SymTable_T SymTable_new(void)
         {
             struct Node *sym_fst = oSymTable->first;
             struct Node *fst = (struct Node*)calloc(1, sizeof(struct Node));
+            if (fst == NULL)
+            {
+                return 0;
+            }
             fst->key = (const char*)malloc(strlen(pcKey) + 1);
             strcpy((char*)fst->key, pcKey);
             fst->value = pvValue; 
