@@ -56,8 +56,8 @@ static size_t SymTable_hash(const char *pcKey, size_t uBucketCount)
    return uHash % uBucketCount;
 }
 
-/*expands the hash table bucket number when bindings exceed
-a certain amount*/
+/*expands the hash table bucket number of oSymTable
+when bindings exceed a certain amount*/
 void SymTable_expand(SymTable_T oSymTable)
 {
     struct Binding **new_buckets;
@@ -120,9 +120,6 @@ void SymTable_expand(SymTable_T oSymTable)
     }
     return;
 }
-
-
-
     /*frees all memory occupied by oSymTable*/
   void SymTable_free(SymTable_T oSymTable)
   {

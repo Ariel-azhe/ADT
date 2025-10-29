@@ -7,7 +7,7 @@
     #include <string.h>
 
     
-
+    /*creates a type for the */
     typedef struct Table *SymTable_T;
 
 
@@ -53,7 +53,8 @@
      void (*pfApply)(const char *pcKey, void *pvValue, void *pvExtra),
      const void *pvExtra);
 
+/* Return a hash code for pcKey that is between 0 and uBucketCount-1,
+   inclusive. */
+static size_t SymTable_hash(const char *pcKey, size_t uBucketCount);
 
-
-    
 #endif
