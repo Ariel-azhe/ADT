@@ -216,6 +216,18 @@ void SymTable_expand(SymTable_T oSymTable)
                 printf("not changed ");
                 printf("%s", cur->key);
                 printf("\n");
+                if (cur == NULL)
+                {
+                    printf("cur is already null");
+                    printf("    ");
+
+                }
+                else
+                {
+                    printf("next is ");
+                    printf("%s", cur->next->key);
+                    printf("    ");
+                }
                 prev = cur;
                 cur = cur->next;
                 printf("prev is ");
