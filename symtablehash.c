@@ -328,7 +328,15 @@ void SymTable_expand(SymTable_T oSymTable)
     hvalue = (int)SymTable_hash(pcKey, oSymTable->length);
     cur = oSymTable->buckets[hvalue];
     printf("cur is ");
-    printf("%s", cur->key);
+    if (cur == NULL)
+    {
+        printf("NULL");
+    }
+    else
+    {
+        printf("%s", cur->key);
+    }
+    printf("%d", "in " + hvalue);
     printf("\n");
     while (cur != NULL)
     {
