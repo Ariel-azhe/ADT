@@ -188,7 +188,7 @@ void SymTable_expand(SymTable_T oSymTable)
             pnext = cur->next;
             if (prev_hval != hvalue)
             {
-                printf("reallocated");
+                printf("reallocated ");
                 printf("%s", cur->key);
                 printf("\n");
                 printf("prev is ");
