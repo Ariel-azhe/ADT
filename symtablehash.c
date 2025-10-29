@@ -222,6 +222,12 @@ void SymTable_expand(SymTable_T oSymTable)
                     printf("    ");
 
                 }
+                else if (cur->next == NULL)
+                {
+                    printf("next is null");
+                    printf("    ");
+
+                }
                 else
                 {
                     printf("next is ");
