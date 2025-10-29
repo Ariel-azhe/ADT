@@ -78,14 +78,13 @@ void SymTable_expand(SymTable_T oSymTable)
     /*updates symtable length and bucket array (expanded)*/
     oSymTable->length = bucket_cnts[bindex];
     oSymTable->buckets = new_buckets;
-    i = 0;
+    int prev_hval = 0;
+    int hvalue = 0;
     /*re-hashes every existing key-value pair in the symtable*/
     while (i < bucket_cnts[bindex - 1])
     {
         struct Binding *cur = oSymTable->buckets[i];
         struct Binding *prev = oSymTable->buckets[i];
-        int prev_hval = 0;
-        int hvalue = 0;
         struct Binding *hnext = NULL;
         struct Binding *pnext = NULL;
         while (cur != NULL)
