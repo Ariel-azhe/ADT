@@ -253,6 +253,7 @@ void SymTable_expand(SymTable_T oSymTable)
     int hvalue = 0;
     hvalue = (int)SymTable_hash(pcKey, bucket_cnts[bindex]);
     cur = oSymTable->buckets[hvalue];
+    prev = oSymTable->buckets[hvalue];
     while (cur != NULL)
     {
         if (!(strcmp(pcKey, cur->key)))
