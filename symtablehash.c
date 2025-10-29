@@ -246,6 +246,15 @@ void SymTable_expand(SymTable_T oSymTable)
                     printf("\n");
 
                 }
+                printf("actally going to: ");
+                if (pnext == NULL)
+                {
+                    printf("NULL\n");
+                }
+                else
+                {
+                    printf("%s", pnext->key);
+                }
                 cur = pnext;
             }
             else
