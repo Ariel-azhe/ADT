@@ -135,11 +135,13 @@ void SymTable_expand(SymTable_T oSymTable)
                     prev->next = pnext;
                 }
                 hnext = oSymTable->buckets[hvalue];
-                nmemo = (struct Binding*)realloc((void*)cur, sizeof(struct Binding));
-                if (nmemo == NULL)
-                {
-                    return;
-                }
+                nmemo = (struct Binding*)calloc(1, sizeof(struct Binding));
+                nmemo->key = (const char*)malloc(strlen(cur->key) + 1);
+                strcpy((char*)nmemo->key, cur->key);
+                nmemo->value = cur->value;
+                free(cur->key);
+                cur->key = NULL;
+                free(cur);
                 nmemo->next = hnext;
                 oSymTable->buckets[hvalue] = nmemo;
                 cur = pnext;
