@@ -231,6 +231,7 @@ void SymTable_expand(SymTable_T oSymTable)
                 else
                 {
                     printf("%s", cur->key);
+                    printf("\n");
                 }
                 cur->next = hnext;
                 if (cur == NULL)
