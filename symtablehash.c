@@ -69,6 +69,7 @@ void SymTable_expand(SymTable_T oSymTable)
     }
     oSymTable->length = bucket_cnts[bindex];
     oSymTable->buckets = new_buckets;
+    new_buckets = NULL;
     i = bucket_cnts[bindex-1];
     while (i < oSymTable->length)
     {
@@ -90,6 +91,9 @@ void SymTable_expand(SymTable_T oSymTable)
             prev_hval = (int)SymTable_hash(cur->key, bucket_cnts[bindex-1]);
             hvalue = (int)SymTable_hash(cur->key, bucket_cnts[bindex-1]);
             pnext = cur->next;
+            prev = cur;
+            cur = pnext;
+            /*
             if (prev_hval != hvalue)
             {
                 if (cur == oSymTable->buckets[i])
@@ -116,6 +120,7 @@ void SymTable_expand(SymTable_T oSymTable)
                 prev = cur;
                 cur = pnext;
             }
+                */
         }
         i++;
 
