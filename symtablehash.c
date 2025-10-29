@@ -46,6 +46,7 @@ static size_t bucket_cnts[] = {1, 2, 3, 10, 25, 16381, 32749, 65521};
     {
         SymTable_T oSymTableSmall;
         int iSuccessful;
+        char cvalue;
         oSymTableSmall = SymTable_new();
         ASSURE(oSymTableSmall != NULL);
         iSuccessful = SymTable_put(oSymTableSmall, "xxx", "xxx");
@@ -68,6 +69,27 @@ static size_t bucket_cnts[] = {1, 2, 3, 10, 25, 16381, 32749, 65521};
         ASSURE(iSuccessful);
         iSuccessful = SymTable_put(oSymTableSmall, "h", "h");
         ASSURE(iSuccessful);
+
+        cvalue = (char*)SymTable_get(oSymTableSmall, "a");
+        ASSURE(cvalue != NULL);
+        cvalue = (char*)SymTable_get(oSymTableSmall, "b");
+        ASSURE(cvalue != NULL);
+        cvalue = (char*)SymTable_get(oSymTableSmall, "c");
+        ASSURE(cvalue != NULL);
+        cvalue = (char*)SymTable_get(oSymTableSmall, "d");
+        ASSURE(cvalue != NULL);
+        cvalue = (char*)SymTable_get(oSymTableSmall, "e");
+        ASSURE(cvalue != NULL);
+        cvalue = (char*)SymTable_get(oSymTableSmall, "f");
+        ASSURE(cvalue != NULL);
+        cvalue = (char*)SymTable_get(oSymTableSmall, "g");
+        ASSURE(cvalue != NULL);
+        cvalue = (char*)SymTable_get(oSymTableSmall, "h");
+        ASSURE(cvalue != NULL);
+        cvalue = (char*)SymTable_get(oSymTableSmall, "xxx");
+        ASSURE(cvalue != NULL);
+        cvalue = (char*)SymTable_get(oSymTableSmall, "yyy");
+        ASSURE(cvalue != NULL);
 
         SymTable_free(oSymTableSmall);
         return 0;
