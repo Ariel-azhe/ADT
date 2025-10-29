@@ -210,12 +210,15 @@ void SymTable_expand(SymTable_T oSymTable)
                 {
                     printf("cur is already null");
                     printf("    ");
+                    printf("\n");
+
 
                 }
                 else if (cur->next == NULL)
                 {
                     printf("next is null");
                     printf("    ");
+                    printf("\n");
 
                 }
                 else
@@ -223,6 +226,8 @@ void SymTable_expand(SymTable_T oSymTable)
                     printf("next is ");
                     printf("%s", cur->next->key);
                     printf("    ");
+                    printf("\n");
+
                 }
                 hnext = oSymTable->buckets[hvalue];
                 oSymTable->buckets[hvalue] = cur;
