@@ -5,16 +5,19 @@ static size_t size;
 
 /*the structure of every node in the linked list*/
 struct Node {
-    /*the pointer to the key string*/
+        /*the pointer to the key string*/
         const char *key;
+
         /*the pointer to the value with generic type*/
         const void *value;
+
         /*the pointer to the next binding in the list*/
         struct Node *next;
     };
 
     /*the struct holding the list implementation of sym table*/
     struct Table {
+
         /*the starting node of the list*/
         struct Node *first;
     };
@@ -173,6 +176,7 @@ SymTable_T SymTable_new(void)
         struct Node *cur = oSymTable->first;
         assert(oSymTable != NULL);
         assert(pvExtra != NULL);
+        assert(pfApply != NULL);
         while (cur != NULL)
         {
             (*pfApply)(cur->key, (void*)cur->value, (void*)pvExtra);
