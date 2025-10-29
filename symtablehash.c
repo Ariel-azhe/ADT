@@ -20,7 +20,7 @@ static void assure(int iSuccessful, int iLineNum)
 /*keeps track of which expansion attempt program is on*/
 static size_t bindex = 0;
 /*keeps track of all the possible expanded to sizes*/
-static size_t bucket_cnts[] = {1, 2, 3, 10, 8191, 16381, 32749, 65521};
+static size_t bucket_cnts[] = {1, 2, 3, 10, 11, 16381, 32749, 65521};
 
     /*the structure of a single*/
     struct Binding {
