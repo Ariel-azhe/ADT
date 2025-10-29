@@ -53,6 +53,7 @@ static size_t bucket_cnts[] = {1, 2, 4, 4093, 8191, 16381, 32749, 65521};
         iSuccessful = SymTable_put(oSymTableSmall, "xx", "xx");
         ASSURE(iSuccessful);
 
+        SymTable_free(oSymTableSmall);
         return 0;
     }
 
