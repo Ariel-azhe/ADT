@@ -273,7 +273,9 @@ void SymTable_expand(SymTable_T oSymTable)
         {
             SymTable_expand(oSymTable);
         }
+        /*
         SymTable_print(oSymTable);
+        */
         return 1;
      }
     
