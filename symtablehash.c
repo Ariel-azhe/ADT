@@ -138,7 +138,6 @@ void SymTable_expand(SymTable_T oSymTable)
         int hvalue = 0;
         struct Binding *hnext = NULL;
         struct Binding *pnext = NULL;
-        struct Binding *nmemo = NULL;
         while (cur != NULL)
         {
             prev_hval = (int)SymTable_hash(cur->key, bucket_cnts[bindex-1]);
@@ -156,15 +155,8 @@ void SymTable_expand(SymTable_T oSymTable)
                     prev->next = pnext;
                 }
                 hnext = oSymTable->buckets[hvalue];
-                nmemo = (struct Binding*)realloc(1, sizeof(struct Binding));
-                nmemo->key = (const char*)malloc(strlen(cur->key) + 1);
-                strcpy((char*)nmemo->key, cur->key);
-                nmemo->value = cur->value;
-                free((void*)cur->key);
-                cur->key = NULL;
-                free(cur);
-                nmemo->next = hnext;
-                oSymTable->buckets[hvalue] = nmemo;
+                oSymTable->buckets[hvalue] = cur;
+                cur->next = hnext;
                 cur = pnext;
             }
             else
