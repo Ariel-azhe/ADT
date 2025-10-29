@@ -52,6 +52,8 @@ static size_t bucket_cnts[] = {1, 2, 4, 4093, 8191, 16381, 32749, 65521};
         ASSURE(iSuccessful);
         iSuccessful = SymTable_put(oSymTableSmall, "xx", "xx");
         ASSURE(iSuccessful);
+
+        return 0;
     }
 
 /*creates new empty symbol table or returns NULL
