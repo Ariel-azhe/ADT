@@ -155,6 +155,7 @@ void SymTable_expand(SymTable_T oSymTable)
     struct Binding ** new_buckets = 
     (struct Binding**)realloc(oSymTable->buckets, bucket_cnts[++bindex]*sizeof(struct Binding));
     size_t i = 0;
+    printf("expanded");
     if (new_buckets == NULL)
     {
         return;
@@ -203,7 +204,7 @@ void SymTable_expand(SymTable_T oSymTable)
                 else
                 {
                     printf("%s", oSymTable->buckets[hvalue]->next->key);
-                    printf("\n");
+                    printf("above is next, below is hnext\n");
                     printf("%s", hnext->key);
                 }
             
