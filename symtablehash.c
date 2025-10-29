@@ -79,7 +79,7 @@ void SymTable_expand(SymTable_T oSymTable)
     while (i < bucket_cnts[bindex - 1])
     {
         struct Binding *cur = oSymTable->buckets[i];
-        struct Binding *prev = NULL;
+        struct Binding *prev = oSymTable->buckets[i];
         int prev_hval = 0;
         int hvalue = 0;
         struct Binding *hnext = NULL;
