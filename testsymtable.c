@@ -809,7 +809,6 @@ static void testLargeTable(int iBindingCount)
    /* Create oSymTableSmall, and put a couple of bindings into it. */
    oSymTableSmall = SymTable_new();
    ASSURE(oSymTableSmall != NULL);
-   printf("putted");
    iSuccessful = SymTable_put(oSymTableSmall, "xxx", "xxx");
    ASSURE(iSuccessful);
    iSuccessful = SymTable_put(oSymTableSmall, "yyy", "yyy");
