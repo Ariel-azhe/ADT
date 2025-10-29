@@ -180,7 +180,10 @@ void SymTable_expand(SymTable_T oSymTable)
         newB->next = cur;
         oSymTable->buckets[hvalue] = newB;
         newB->prev = NULL;
-        cur->prev = newB;
+        if (cur != NULL)
+        {
+            cur->prev = newB;
+        }
         oSymTable->bindings++;
         if (oSymTable->bindings == oSymTable->length)
         {
