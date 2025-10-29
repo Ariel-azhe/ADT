@@ -84,7 +84,7 @@ static size_t bucket_cnts[] = {509, 1021, 2039, 4093, 8191, 16381, 32749, 65521}
     {
         struct Binding *cur = oSymTable->buckets[i];
         struct Binding *cnext = NULL;
-        printf("%d",i);
+        printf("%d",(int)i);
         while (cur != NULL)
         {
             cnext=cur->next;
