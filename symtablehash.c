@@ -161,6 +161,7 @@ void SymTable_expand(SymTable_T oSymTable)
         struct Binding *newB;
         int hvalue = 0;
         hvalue = SymTable_hash(pcKey, bucket_cnts[bindex]);
+        printf("put ");
         if (SymTable_contains(oSymTable, pcKey))
         {
             return 0;
