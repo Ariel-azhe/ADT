@@ -124,9 +124,8 @@ static size_t bucket_cnts[] = {1, 2, 3, 10, 25, 16381, 32749, 65521};
         printf("%d",(int)i);
         while (cur != NULL)
         {
-            cnext=cur->next;
             printf("%s", cur->key);
-            cur = cnext;
+            cur = cur->next;
             removed++;
         }
         i++;
@@ -274,7 +273,6 @@ void SymTable_expand(SymTable_T oSymTable)
         i++;
 
     }
-    SymTable_print(oSymTable);
     return;
 }
 
