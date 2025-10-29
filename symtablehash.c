@@ -433,6 +433,9 @@ void SymTable_expand(SymTable_T oSymTable)
     struct Binding *cur = NULL;
     int hvalue = 0;
     hvalue = (int)SymTable_hash(pcKey, oSymTable->length);
+    printf("find bucket: ");
+    printf("%d", hvalue);
+    printf("\n");
     cur = oSymTable->buckets[hvalue];
     printf("cur is ");
     if (cur == NULL)
