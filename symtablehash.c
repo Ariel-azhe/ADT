@@ -92,15 +92,143 @@ void SymTable_expand(SymTable_T oSymTable)
         {
             prev_hval = (int)SymTable_hash(cur->key, bucket_cnts[bindex-1]);
             hvalue = (int)SymTable_hash(cur->key, oSymTable->length);
+            /*
+            printf("previous hash: ");
+            printf("%d", prev_hval);
+            printf("new hash: ");
+            printf("%d", hvalue);
+            printf("\n");*/
             pnext = cur->next;
             if ((int)i != hvalue)
             {
+                /*
+                printf("reallocated ");
+                printf("%s", cur->key);
+                printf("\n");
+                printf("prev is ");
+                if (prev == NULL)
+                {
+                    printf("NULL\n");
+                }
+                else
+                {
+                    printf("%s", prev->key);
+                    printf("\n");
+                }
+                */
+
                 hnext = oSymTable->buckets[hvalue];
+                /*
+                printf("new bucket starts with: ");
+                if (hnext == NULL)
+                {
+                    printf("NULL\n");
+                }
+                else
+                {
+                    printf("%s", hnext->key);
+                    printf("\n");
+                }
+                    */
                 oSymTable->buckets[hvalue] = cur;
+                /*
+                printf("new bucket is filled with: ");
+                if (hnext == NULL)
+                {
+                    printf("NULL\n");
+                }
+                else
+                {
+                    printf("%s", cur->key);
+                    printf("\n");
+                }
+                    */
                 cur->next = hnext;
+                /*
+                if (cur == NULL)
+                {
+                    printf("cur is already null");
+                    printf("    ");
+                    printf("\n");
+
+
+                }
+                else if (cur->next == NULL)
+                {
+                    printf("next is null");
+                    printf("    ");
+                    printf("\n");
+
+                }
+                else
+                {
+                    printf("next is ");
+                    printf("%s", cur->next->key);
+                    printf("    ");
+                    printf("\n");
+
+                }
+                printf("actally going to: ");
+                if (pnext == NULL)
+                {
+                    printf("NULL\n");
+                }
+                else
+                {
+                    printf("%s", pnext->key);
+                }
+                    */
+                if (cur == oSymTable->buckets[i])
+                {
+                    oSymTable->buckets[i] = pnext;
+                    prev = pnext;
+                }
+                else
+                {
+                    prev->next = pnext;
+                }
+                cur = pnext;
+            }
+            else
+            {
+                /*
+                printf("not changed ");
+                printf("%s", cur->key);
+                printf("\n");
+                if (cur == NULL)
+                {
+                    printf("cur is already null");
+                    printf("    ");
+
+                }
+                else if (cur->next == NULL)
+                {
+                    printf("next is null");
+                    printf("    ");
+
+                }
+                else
+                {
+                    printf("next is ");
+                    printf("%s", cur->next->key);
+                    printf("    ");
+                }*/
                 prev = cur;
                 cur = cur->next;
+                /*
+                printf("prev is ");
+                if (prev == NULL)
+                {
+                    printf("NULL\n");
+                }
+                else
+                {
+                    printf("%s", prev->key);
+                    printf("\n");
+                }*/
             }
+            /*
+            printf("\n");*/
         }
         i++;
 
@@ -173,6 +301,9 @@ void SymTable_expand(SymTable_T oSymTable)
         {
             SymTable_expand(oSymTable);
         }
+        /*
+        SymTable_print(oSymTable);
+        */
         return 1;
      }
     
@@ -225,7 +356,25 @@ void SymTable_expand(SymTable_T oSymTable)
     struct Binding *cur = NULL;
     int hvalue = 0;
     hvalue = (int)SymTable_hash(pcKey, oSymTable->length);
+    /*
+    printf("find bucket: ");
+    printf("%d", hvalue);
+    printf("\n");
+    */
     cur = oSymTable->buckets[hvalue];
+    /*
+    printf("cur is ");
+    if (cur == NULL)
+    {
+        printf("NULL");
+    }
+    else
+    {
+        printf("%s", cur->key);
+    }
+    printf("%d", hvalue);
+    printf("\n");
+    */
     while (cur != NULL)
     {
         if (!(strcmp(pcKey, cur->key)))
