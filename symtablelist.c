@@ -42,7 +42,10 @@ SymTable_T SymTable_new(void)
         {
             fst_next = NULL;
         }
-        fst_next = oSymTable->first->next;
+        else
+        {
+            fst_next = oSymTable->first->next;
+        }
         free((void*)oSymTable->first->key);
         oSymTable->first->key = NULL;
         free(oSymTable->first);
