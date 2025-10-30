@@ -34,20 +34,13 @@ SymTable_T SymTable_new(void)
 
   void SymTable_free(SymTable_T oSymTable)
   {
-    struct Node *fst_next = NULL;
+    struct Node *fst_next = oSymTable->first;
     assert(oSymTable != NULL);
-    while (size > 0)
+    while (oSymTable->first != NULL)
     {
-        if (oSymTable->first == NULL)
-        {
-            fst_next = NULL;
-        }
-        else
-        {
-            fst_next = oSymTable->first->next;
-            free((void*)oSymTable->first->key);
-            oSymTable->first->key = NULL;
-        }
+        fst_next = oSymTable->first->next;
+        free((void*)oSymTable->first->key);
+        oSymTable->first->key = NULL;
         free(oSymTable->first);
         oSymTable->first = fst_next;
         size--;
