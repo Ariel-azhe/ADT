@@ -43,6 +43,8 @@ SymTable_T SymTable_new(void)
             break;
         }
         fst_next = oSymTable->first->next;
+        free((void*)oSymTable->first->key);
+        oSymTable->first->key = NULL;
         free(oSymTable->first);
         oSymTable->first = fst_next;
         size--;
